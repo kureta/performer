@@ -1,0 +1,4 @@
+outs:
+- md5: 9083317d70b173aa8376d098bf43d231
+  size: 4683043257
+  path: features.pth

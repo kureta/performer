@@ -1,0 +1,5 @@
+[core]
+    remote = nas
+    autostage = true
+['remote "nas"']
+    url = ssh://pihole.kureta.xyz:/mnt/Pi-Disk/DVC/

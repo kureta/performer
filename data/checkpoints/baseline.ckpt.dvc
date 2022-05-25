@@ -1,0 +1,4 @@
+outs:
+- md5: 1aeba7bc856af3b8b98e6983deb85734
+  size: 61530155
+  path: baseline.ckpt

@@ -141,7 +141,8 @@ dmypy.json
 
 # Lightning-Hydra-Template
 configs/local/default.yaml
-data/
+# for dvc
+# data/
 logs/
 wandb/
 .env
