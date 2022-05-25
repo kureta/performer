@@ -11,4 +11,8 @@ class AudioDataset(Dataset):
         return len(self.features)
 
     def __getitem__(self, idx):
-        return self.features[idx]['f0'], self.features[idx]['loudness'], self.features[idx]['audio']
+        return (
+            self.features[idx]["f0"],
+            self.features[idx]["loudness"],
+            self.features[idx]["audio"],
+        )

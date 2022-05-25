@@ -2,8 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F  # noqa
 
-from .fft_conv import fft_conv1d
 from src.utils.constants import SAMPLE_RATE
+
+from .fft_conv import fft_conv1d
 
 
 class ConvolutionalReverb(nn.Module):
@@ -21,7 +22,7 @@ class ConvolutionalReverb(nn.Module):
     def init_ir(self):
         length = self.duration * SAMPLE_RATE - 1
         ir = torch.randn(self.out_ch, self.in_ch, length)
-        envelop = torch.exp(-4.0 * torch.linspace(0., self.duration, steps=length))
+        envelop = torch.exp(-4.0 * torch.linspace(0.0, self.duration, steps=length))
         ir *= envelop
         ir = ir / torch.norm(ir, p=2, dim=-1, keepdim=True)
         ir = ir.flip(-1)

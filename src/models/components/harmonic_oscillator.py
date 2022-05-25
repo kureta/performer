@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F  # noqa
 from einops.layers.torch import Reduce
 
-from src.utils.constants import SAMPLE_RATE, HOP_LENGTH
+from src.utils.constants import HOP_LENGTH, SAMPLE_RATE
 
 
 class HarmonicOscillator(nn.Module):
@@ -19,7 +19,9 @@ class HarmonicOscillator(nn.Module):
 
         self.sum_sinusoids = Reduce("b c o t -> b c t", "sum")
 
-    def forward(self, f0: torch.Tensor, master_amplitude: torch.Tensor, overtone_amplitudes: torch.Tensor):
+    def forward(
+        self, f0: torch.Tensor, master_amplitude: torch.Tensor, overtone_amplitudes: torch.Tensor
+    ):
         # f0.shape = [batch, n_channels, time]
         # master_amplitude.shape = [batch, n_channels, time]
         # overtone_amplitudes = [batch, n_channels, n_harmonics, time]
@@ -40,18 +42,27 @@ class HarmonicOscillator(nn.Module):
         # stretch controls by hop_size
         # refactor stretch into a function or a method
         # overtone_fs = self.pre_stretch(overtone_fs)
-        overtone_fs = F.interpolate(overtone_fs, size=(overtone_fs.shape[-2], (f0.shape[-1] - 1) * HOP_LENGTH),
-                                    mode='bilinear', align_corners=True)
+        overtone_fs = F.interpolate(
+            overtone_fs,
+            size=(overtone_fs.shape[-2], (f0.shape[-1] - 1) * HOP_LENGTH),
+            mode="bilinear",
+            align_corners=True,
+        )
         # overtone_fs = self.post_stretch(overtone_fs)
         # overtone_amplitudes = self.pre_stretch(overtone_amplitudes)
-        overtone_amplitudes = F.interpolate(overtone_amplitudes,
-                                            size=(overtone_amplitudes.shape[-2], (f0.shape[-1] - 1) * HOP_LENGTH),
-                                            mode='bilinear', align_corners=True)
+        overtone_amplitudes = F.interpolate(
+            overtone_amplitudes,
+            size=(overtone_amplitudes.shape[-2], (f0.shape[-1] - 1) * HOP_LENGTH),
+            mode="bilinear",
+            align_corners=True,
+        )
         # overtone_amplitudes = self.post_stretch(overtone_amplitudes)
 
         # calculate phases and sinusoids
         # TODO: randomizing phases. Is it necessary?
-        overtone_fs[:, :, :, 0] = 3.14159265 * (torch.rand(*overtone_fs.shape[:-1], device=overtone_fs.device) * 2 - 1)
+        overtone_fs[:, :, :, 0] = 3.14159265 * (
+            torch.rand(*overtone_fs.shape[:-1], device=overtone_fs.device) * 2 - 1
+        )
         phases = torch.cumsum(overtone_fs, dim=-1)
         sinusoids = torch.sin(phases)
 

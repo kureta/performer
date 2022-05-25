@@ -11,23 +11,24 @@ from src.utils.multiscale_stft_loss import distance
 
 
 class DDSP(LightningModule):
-    def __init__(self,
-                 n_harmonics: int = 128,
-                 n_filters: int = 64,
-                 in_ch: int = 1,
-                 out_ch: int = 2,
-                 reverb_dur: int = 3,
-                 mlp_units: int = 512,
-                 mlp_layers: int = 3,
-                 gru_units: int = 512,
-                 gru_layers: int = 1,
-                 lr=0.003,
-                 ):
+    def __init__(
+        self,
+        n_harmonics: int = 128,
+        n_filters: int = 64,
+        in_ch: int = 1,
+        out_ch: int = 2,
+        reverb_dur: int = 3,
+        mlp_units: int = 512,
+        mlp_layers: int = 3,
+        gru_units: int = 512,
+        gru_layers: int = 1,
+        lr=0.003,
+    ):
         super().__init__()
         self.save_hyperparameters()
-        self.controller = Controller(n_harmonics, n_filters,
-                                     mlp_units, mlp_layers,
-                                     gru_units, gru_layers)
+        self.controller = Controller(
+            n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
+        )
         self.harmonics = HarmonicOscillator(n_harmonics, in_ch)
         self.noise = FilteredNoise(n_filters, in_ch)
         self.reverb = ConvolutionalReverb(reverb_dur, in_ch, out_ch)
@@ -45,7 +46,7 @@ class DDSP(LightningModule):
         y = self(f0, amp)
         loss = distance(x, y)
 
-        self.log('train/loss', loss)
+        self.log("train/loss", loss)
 
         return loss
 
@@ -55,11 +56,9 @@ class DDSP(LightningModule):
             y = self(f0, amp)
             loss = distance(x, y)
 
-        self.log('val/loss', loss)
+        self.log("val/loss", loss)
         if batch_nb < 4:
-            wandb.log(
-                {f'{batch_nb}': wandb.Audio(y[0].cpu().numpy().T, sample_rate=SAMPLE_RATE)}
-            )
+            wandb.log({f"{batch_nb}": wandb.Audio(y[0].cpu().numpy().T, sample_rate=SAMPLE_RATE)})
 
         return loss
 

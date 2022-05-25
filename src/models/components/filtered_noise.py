@@ -8,11 +8,21 @@ from src.utils.constants import HOP_LENGTH, N_FFT
 
 
 class FilteredNoise(nn.Module):
-    def __init__(self, n_bands: int = 128, n_channels: int = 1, ):
+    def __init__(
+        self,
+        n_bands: int = 128,
+        n_channels: int = 1,
+    ):
         super().__init__()
 
         self.n_bands = n_bands
         self.n_channels = n_channels
+
+    def init_noise(self, batch_size, n_steps, device):
+        noise = torch.rand(batch_size, self.n_channels, (n_steps - 1) * HOP_LENGTH, device=device)
+        noise = noise * 2.0 - 1.0
+
+        return noise
 
     def forward(self, filter_bands):
         # filter_bands.shape = [batch, n_channels, n_bands, time]
@@ -20,8 +30,7 @@ class FilteredNoise(nn.Module):
         # Generate white noise
         batch_size, _, _, n_steps = filter_bands.shape
         # noise.shape = [batch, n_channels, time]
-        noise = torch.rand(batch_size, self.n_channels, (n_steps - 1) * HOP_LENGTH,
-                           device=filter_bands.device) * 2. - 1.
+        noise = self.init_noise(batch_size, n_steps, filter_bands.device)
 
         # Get frames
         padded_noise = F.pad(noise, (N_FFT // 2, N_FFT // 2))
@@ -30,7 +39,7 @@ class FilteredNoise(nn.Module):
 
         # Stretch filter to window_length // 2
         filter_ = rearrange(filter_bands, "b c f t -> (b t) c f")
-        filter_ = F.interpolate(filter_, size=N_FFT // 2, mode='nearest')
+        filter_ = F.interpolate(filter_, size=N_FFT // 2, mode="nearest")
         filter_ = rearrange(filter_, "(b t) c f -> b c t f", b=batch_size, t=n_steps)
 
         # Prepend 0 DC offset
@@ -53,4 +62,6 @@ class FilteredNoise(nn.Module):
         filtered_noise = rearrange(filtered_noise, "(b c) 1 1 t -> b c t", b=b, c=c)
 
         # remove padding and return
-        return filtered_noise[:, :, N_FFT // 2:-N_FFT // 2]
+        start = N_FFT // 2
+        end = -start
+        return filtered_noise[:, :, start:end]

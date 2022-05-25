@@ -42,8 +42,8 @@ def log_distance(x, y):
 
 def distance(x, y):
     scales = [2048, 1024, 512, 256, 128]
-    x = multiscale_stft(x, scales, .75)
-    y = multiscale_stft(y, scales, .75)
+    x = multiscale_stft(x, scales, 0.75)
+    y = multiscale_stft(y, scales, 0.75)
 
     lin = sum(list(map(lin_distance, x, y)))
     log = sum(list(map(log_distance, x, y)))
