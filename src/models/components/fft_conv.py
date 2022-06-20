@@ -46,7 +46,6 @@ def fft_conv1d(
     bias=None,
     stride: int = 1,
     padding: int = 0,
-    block_ratio: float = 5,
 ):
     """
     Same as `torch.nn.functional.conv1d` but using FFT for the convolution.
@@ -58,8 +57,6 @@ def fft_conv1d(
         bias (Tensor or None): if not None, bias term for the convolution.
         stride (int): stride of convolution.
         padding (int): padding to apply to the input.
-        block_ratio (float): can be tuned for speed. The input is split in chunks
-            with a size of `int(block_ratio * kernel_size)`.
     Shape:
         - Inputs: `input` is `[B, C, T]`, `weight` is `[D, C, K]` and bias is `[D]`.
         - Output: `(*, T)`
@@ -73,29 +70,23 @@ def fft_conv1d(
     """
     x = F.pad(x, (padding, padding))
     batch, channels, length = x.shape
-    out_channels, _, kernel_size = weight.shape
+    out_channels, in_channels, kernel_size = weight.shape
+
+    if channels != in_channels:
+        raise ValueError("IR input channels and signal input channels must match.")
 
     if length < kernel_size:
         raise RuntimeError(
             f"Input should be at least as large as the kernel size {kernel_size}, "
             f"but it is only {length} samples long."
         )
-    if block_ratio < 1:
-        raise RuntimeError("Block ratio must be greater than 1.")
 
-    # We are going to process the input blocks by blocks, as for some reason it is faster
-    # and less memory intensive (I think the culprit is `torch.einsum`).
-    block_size: int = min(int(kernel_size * block_ratio), length)
-    fold_stride = block_size - kernel_size + 1
-    weight = pad_to(weight, block_size)
+    weight = pad_to(weight, length)
     weight_z = fft.rfft(weight)
 
-    # We pad the input and get the different frames, on which
-    frames = unfold(x, block_size, fold_stride)
-
-    frames_z = fft.rfft(frames)
-    out_z = frames_z * weight_z.conj()
-    out = fft.irfft(out_z, block_size)
+    x_z = fft.rfft(x)
+    out_z = x_z * weight_z.conj()
+    out = fft.irfft(out_z)
     # The last bit is invalid, because FFT will do a circular convolution.
     out = out[..., : -kernel_size + 1]
     out = out.reshape(batch, out_channels, -1)

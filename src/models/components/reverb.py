@@ -8,14 +8,11 @@ from .fft_conv import fft_conv1d
 
 
 class ConvolutionalReverb(nn.Module):
-    def __init__(self, duration=3, in_ch=1, out_ch=1, block_ratio=5):
+    def __init__(self, duration=3, in_ch=1, out_ch=1):
         super().__init__()
         self.duration = duration
         self.in_ch = in_ch
         self.out_ch = out_ch
-        if block_ratio < 1:
-            raise RuntimeError("Block ratio must be greater than 1.")
-        self.block_ratio = block_ratio
         # first, (if reversed, last) bit of ir should always be 1
         self.ir = nn.Parameter(self.init_ir())
 
@@ -34,6 +31,13 @@ class ConvolutionalReverb(nn.Module):
     def forward(self, x: torch.Tensor):
         ir = torch.concat([self.ir, torch.ones(*self.ir.shape[:-1], 1, device=x.device)], dim=-1)
         x = F.pad(x, (ir.shape[-1] - 1, 0))
-        out = fft_conv1d(x, self.ir, block_ratio=self.block_ratio)
+        out = fft_conv1d(x, self.ir)
+
+        return out
+
+    def forward_live(self, x: torch.Tensor):
+        ir = torch.concat([self.ir, torch.ones(*self.ir.shape[:-1], 1, device=x.device)], dim=-1)
+        x = F.pad(x, (ir.shape[-1] - 1, ir.shape[-1] - 1))
+        out = fft_conv1d(x, self.ir)
 
         return out
