@@ -23,12 +23,14 @@ trainer:
   min_epochs: 10
   max_epochs: 10000
   gradient_clip_val: 0.5
+  precision: 16
+  log_every_n_steps: 10
 
 model:
   lr: 0.001
 
 datamodule:
-  batch_size: 16
+  batch_size: 8
 
 logger:
   wandb:
