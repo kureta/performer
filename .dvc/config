@@ -1,0 +1,7 @@
+[core]
+    analytics = false
+    autostage = false
+    remote = minio
+['remote "minio"']
+    url = s3://ddsp_data
+    endpointurl = https://cloud.kureta.xyz

@@ -92,4 +92,4 @@ repos:
       - id: codespell
         args:
           - --skip=logs/**,data/**
-          # - --ignore-words-list=abc,def
+          - --ignore-words-list=hist

@@ -2,10 +2,10 @@
 
 defaults:
   - _self_
-  - datamodule: mnist.yaml # choose datamodule with `test_dataloader()` for evaluation
-  - model: mnist.yaml
-  - logger: null
-  - trainer: default.yaml
+  - datamodule: ddsp.yaml # choose datamodule with `test_dataloader()` for evaluation
+  - model: ddsp.yaml
+  - logger: wandb
+  - trainer: gpu.yaml
   - paths: default.yaml
   - extras: default.yaml
   - hydra: default.yaml

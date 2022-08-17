@@ -6,8 +6,9 @@ defaults:
   - default.yaml
 
 trainer:
-  max_epochs: 20
+  max_epochs: 8
   overfit_batches: 3
+  accelerator: gpu
 
 # model ckpt and early stopping need to be disabled during overfitting
 callbacks: null

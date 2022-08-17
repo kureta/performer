@@ -1,0 +1,12 @@
+_target_: src.models.ddsp_module.DDSP
+
+n_harmonics: 128
+n_filters: 64
+in_ch: 1
+out_ch: 2
+reverb_dur: 3
+mlp_units: 512
+mlp_layers: 3
+gru_units: 512
+gru_layers: 3
+lr: 0.0003

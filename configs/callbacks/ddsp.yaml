@@ -1,0 +1,10 @@
+defaults:
+  - default.yaml
+
+model_checkpoint:
+  monitor: "val/loss"
+  mode: "min"
+
+early_stopping:
+  monitor: "val/loss"
+  mode: "min"
