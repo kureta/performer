@@ -82,15 +82,12 @@ class DDSP(LightningModule):
             ir = np.flip(self.reverb.ir[:, 0].cpu().numpy().T)
             ir = wandb.Audio(ir, sample_rate=SAMPLE_RATE)
             audios = []
-            amps = []
             overtone_images = []
             noise_images = []
 
-            _, master_amp, overtone_amps = harm_ctrl
-            for wav, m_amp, overtones, noises in zip(y, master_amp, overtone_amps, noise_ctrl):
+            _, overtone_amps = harm_ctrl
+            for wav, overtones, noises in zip(y, overtone_amps, noise_ctrl):
                 audios.append(wandb.Audio(wav.cpu().numpy().T, sample_rate=SAMPLE_RATE))
-                # Generate inferred harmonic oscillator master amplitude plot
-                amps.append(m_amp[0].cpu().numpy())
                 # Generate noise band controls
                 im_noise = noises[0].cpu().numpy()
                 im_noise /= im_noise.max()
@@ -102,12 +99,10 @@ class DDSP(LightningModule):
                 im_overtones *= 255
                 overtone_images.append(wandb.Image(im_overtones))
 
-            loudness_plots = multiline_time_plot(amps, "loudness")
             wandb.log(
                 {
                     "ir": ir,
                     "pred_waves": audios,
-                    "loudness_envelops": loudness_plots,
                     "overtones": overtone_images,
                     "noise_bands": noise_images,
                 }
