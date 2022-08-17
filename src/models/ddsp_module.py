@@ -11,11 +11,15 @@ from src.utils.constants import SAMPLE_RATE
 from src.utils.multiscale_stft_loss import distance
 
 
-def time_plot(value, name):
-    time = np.arange(len(value))
-    data = np.stack([time, value]).T
-    table = wandb.Table(columns=["time", name], data=data)
-    return table
+def multiline_time_plot(values, name):
+    time = np.arange(len(values[0]))
+    return wandb.plot.line_series(
+        xs=time,
+        ys=values,
+        keys=[f"{name}_{idx}" for idx in range(len(values))],
+        title=name,
+        xname="time",
+    )
 
 
 class DDSP(LightningModule):
@@ -68,6 +72,7 @@ class DDSP(LightningModule):
             y = self.reverb(harm + noise)
             loss = distance(x, y)
 
+        self.log("val/loss", loss)
         if wandb.run is None:
             return loss
 
@@ -76,7 +81,7 @@ class DDSP(LightningModule):
             ir = np.flip(self.reverb.ir[:, 0].cpu().numpy().T)
             ir = wandb.Audio(ir, sample_rate=SAMPLE_RATE)
             audios = []
-            loudness_plots = []
+            amps = []
             overtone_images = []
             noise_images = []
 
@@ -84,8 +89,7 @@ class DDSP(LightningModule):
             for wav, m_amp, overtones, noises in zip(y, master_amp, overtone_amps, noise_ctrl):
                 audios.append(wandb.Audio(wav.cpu().numpy().T, sample_rate=SAMPLE_RATE))
                 # Generate inferred harmonic oscillator master amplitude plot
-                loudness = m_amp[0].cpu().numpy()
-                loudness_plots.append(time_plot(loudness, "loudness"))
+                amps.append(m_amp[0].cpu().numpy())
                 # Generate noise band controls
                 im_noise = noises[0].cpu().numpy()
                 im_noise /= im_noise.max()
@@ -95,10 +99,10 @@ class DDSP(LightningModule):
                 im_overtones /= im_overtones.max()
                 overtone_images.append(wandb.Image(im_overtones * 255))
 
+            loudness_plots = multiline_time_plot(amps, "loudness")
             # Log reverb once
             wandb.log(
                 {
-                    "val/loss": loss,
                     "ir": ir,
                     "pred_waves": audios,
                     "loudness_envelops": loudness_plots,
