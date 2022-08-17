@@ -53,12 +53,13 @@ class PositionalEncoding(nn.Module):
 class TransformerModel(nn.Module):
     """Container module with an encoder, a recurrent or transformer module, and a decoder."""
 
-    def __init__(self, n_units=512, n_heads=8, n_hidden=2048, n_layers=6, dropout=0.1):
+    def __init__(self, n_units=512, n_heads=2, n_hidden=1024, n_layers=3, dropout=0.1):
         super().__init__()
         self.pos_encoder = PositionalEncoding(n_units, dropout, 1251)
         encoder_layers = nn.TransformerEncoderLayer(n_units, n_heads, n_hidden, dropout)
         self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers)
         self.n_units = n_units
+        self.src_mask = self._generate_square_subsequent_mask(1251)
 
     @staticmethod
     def _generate_square_subsequent_mask(sz):
@@ -69,8 +70,8 @@ class TransformerModel(nn.Module):
         return mask
 
     def forward(self, src):
-        src = self.pos_encoder(src)
-        output = self.transformer_encoder(src)
+        src = self.pos_encoder(src * math.sqrt(self.n_units))
+        output = self.transformer_encoder(src, self.src_mask)
         return output
 
 
