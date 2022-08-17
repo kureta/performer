@@ -5,7 +5,6 @@ import torch.nn.functional as F  # noqa
 from einops.layers.torch import Reduce
 
 from src.utils.constants import HOP_LENGTH, SAMPLE_RATE
-from src.utils.helpers import bins_to_cents, cents_to_freqs
 
 
 class HarmonicOscillator(nn.Module):
@@ -20,9 +19,7 @@ class HarmonicOscillator(nn.Module):
 
         self.sum_sinusoids = Reduce("b c o t -> b c t", "sum")
 
-    def forward(
-        self, f0: torch.Tensor, master_amplitude: torch.Tensor, overtone_amplitudes: torch.Tensor
-    ):
+    def forward(self, f0: torch.Tensor, overtone_amplitudes: torch.Tensor):
         # f0.shape = [batch, n_channels, time]
         # master_amplitude.shape = [batch, n_channels, time]
         # overtone_amplitudes = [batch, n_channels, n_harmonics, time]
@@ -37,10 +34,6 @@ class HarmonicOscillator(nn.Module):
 
         # set amplitudes of overtones above Nyquist to 0.0
         overtone_amplitudes[overtone_fs > np.pi] = 0.0
-        # normalize harmonic_distribution so it always sums to one
-        overtone_amplitudes /= torch.sum(overtone_amplitudes, dim=2, keepdim=True)
-        # scale individual overtone amplitudes by the master amplitude
-        overtone_amplitudes = torch.einsum("bcot,bct->bcot", overtone_amplitudes, master_amplitude)
 
         # stretch controls by hop_size
         # refactor stretch into a function or a method

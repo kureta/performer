@@ -104,9 +104,7 @@ class TransformerController(nn.Module):
         self.dense_loudness = nn.Linear(n_units, 1)
         self.dense_filter = nn.Linear(n_units, n_noise_filters)
 
-    def forward(
-        self, f0: Tensor, loudness: Tensor
-    ) -> Tuple[Tuple[Tensor, Tensor, Tensor], Tensor]:
+    def forward(self, f0: Tensor, loudness: Tensor) -> Tuple[Tuple[Tensor, Tensor], Tensor]:
         # comes b, ch, t, linear needs b, t, ch, transformer needs t, b, ch
         features = torch.cat([f0, loudness], dim=1).transpose(1, 2)
         features = self.in_transform(features).transpose(0, 1)
@@ -114,14 +112,12 @@ class TransformerController(nn.Module):
         hidden = self.gru(features, features).transpose(0, 1)
 
         overtone_amplitudes = modified_sigmoid(self.dense_harmonic(hidden))
-        master_amplitude = modified_sigmoid(self.dense_loudness(hidden))
 
         noise_distribution = self.dense_filter(hidden)
         noise_distribution = modified_sigmoid(noise_distribution)
 
         harm_controls = (
             f0,
-            master_amplitude.transpose(1, 2),
             overtone_amplitudes.transpose(1, 2).unsqueeze(1),
         )
         noise_controls = noise_distribution.transpose(1, 2).unsqueeze(1)
@@ -197,12 +193,9 @@ class Controller(nn.Module):
 
         # one element for overall loudness
         self.dense_harmonic = nn.Linear(decoder_mlp_units, n_harmonics)
-        self.dense_loudness = nn.Linear(decoder_mlp_units, 1)
         self.dense_filter = nn.Linear(decoder_mlp_units, n_noise_filters)
 
-    def forward(
-        self, f0: Tensor, loudness: Tensor
-    ) -> Tuple[Tuple[Tensor, Tensor, Tensor], Tensor]:
+    def forward(self, f0: Tensor, loudness: Tensor) -> Tuple[Tuple[Tensor, Tensor], Tensor]:
         latent_f0 = self.mlp_f0(f0.transpose(1, 2))
         latent_loudness = self.mlp_loudness(loudness.transpose(1, 2))
 
@@ -214,14 +207,12 @@ class Controller(nn.Module):
         latent = self.mlp_gru(latent)
 
         overtone_amplitudes = modified_sigmoid(self.dense_harmonic(latent))
-        master_amplitude = modified_sigmoid(self.dense_loudness(latent))
 
         noise_distribution = self.dense_filter(latent)
         noise_distribution = modified_sigmoid(noise_distribution)
 
         harm_controls = (
             f0,
-            master_amplitude.transpose(1, 2),
             overtone_amplitudes.transpose(1, 2).unsqueeze(1),
         )
         noise_controls = noise_distribution.transpose(1, 2).unsqueeze(1)
