@@ -3,7 +3,7 @@ import torch
 import wandb
 from pytorch_lightning import LightningModule
 
-from src.models.components.controller import Controller
+from src.models.components.controller import TransformerController
 from src.models.components.filtered_noise import FilteredNoise
 from src.models.components.harmonic_oscillator import HarmonicOscillator
 from src.models.components.reverb import ConvolutionalReverb
@@ -38,10 +38,12 @@ class DDSP(LightningModule):
     ):
         super().__init__()
         self.save_hyperparameters()
-        self.controller = Controller(
-            n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
+        # self.controller = Controller(
+        #     n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
+        # )
+        self.controller = TransformerController(
+            in_ch, n_harmonics, n_filters, n_units=512, n_hidden=1024, n_heads=2, n_layers=3
         )
-        # self.controller = TransformerController(in_ch, n_harmonics, n_filters, 512, 512)
         self.harmonics = HarmonicOscillator(n_harmonics, in_ch)
         self.noise = FilteredNoise(n_filters, in_ch)
         self.reverb = ConvolutionalReverb(reverb_dur, in_ch, out_ch)
