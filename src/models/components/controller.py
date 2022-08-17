@@ -55,8 +55,7 @@ class TransformerModel(nn.Module):
 
     def __init__(self, n_units=512, n_heads=8, n_hidden=2048, n_layers=6, dropout=0.1):
         super().__init__()
-        self.src_mask = None
-        self.pos_encoder = PositionalEncoding(n_units, dropout)
+        self.pos_encoder = PositionalEncoding(n_units, dropout, 1251)
         encoder_layers = nn.TransformerEncoderLayer(n_units, n_heads, n_hidden, dropout)
         self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers)
         self.n_units = n_units
@@ -69,17 +68,9 @@ class TransformerModel(nn.Module):
         )
         return mask
 
-    def forward(self, src, has_mask=True):
-        if has_mask:
-            device = src.device
-            if self.src_mask is None or self.src_mask.size(0) != len(src):
-                mask = self._generate_square_subsequent_mask(len(src)).to(device)
-                self.src_mask = mask
-        else:
-            self.src_mask = None
-
+    def forward(self, src):
         src = self.pos_encoder(src)
-        output = self.transformer_encoder(src, self.src_mask)
+        output = self.transformer_encoder(src)
         return output
 
 
@@ -98,7 +89,7 @@ class TransformerController(nn.Module):
         super().__init__()
 
         self.in_transform = nn.Linear(in_ch * 2, n_units)
-        self.gru = nn.Transformer(n_units, n_heads, n_layers, n_layers, n_hidden, dropout)
+        self.gru = TransformerModel(n_units, n_heads, n_hidden, n_layers, dropout)
 
         self.dense_harmonic = nn.Linear(n_units, n_harmonics)
         self.dense_loudness = nn.Linear(n_units, 1)
@@ -111,7 +102,7 @@ class TransformerController(nn.Module):
         features = torch.cat([f0, loudness], dim=1).transpose(1, 2)
         features = self.in_transform(features).transpose(0, 1)
 
-        hidden = self.gru(features, features).transpose(0, 1)
+        hidden = self.gru(features).transpose(0, 1)
 
         overtone_amplitudes = modified_sigmoid(self.dense_harmonic(hidden))
         master_amplitude = modified_sigmoid(self.dense_loudness(hidden))
