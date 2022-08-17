@@ -3,5 +3,5 @@
     autostage = false
     remote = minio
 ['remote "minio"']
-    url = s3://ddsp_data
+    url = s3://performer
     endpointurl = https://cloud.kureta.xyz
