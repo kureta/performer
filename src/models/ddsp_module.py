@@ -15,8 +15,7 @@ def time_plot(value, name):
     time = np.arange(len(value))
     data = np.stack([time, value]).T
     table = wandb.Table(columns=["time", name], data=data)
-    plot = wandb.plot.line(table, "time", name)
-    return plot
+    return table
 
 
 class DDSP(LightningModule):
@@ -69,9 +68,6 @@ class DDSP(LightningModule):
             y = self.reverb(harm + noise)
             loss = distance(x, y)
 
-        # Log all the things
-        self.log("val/loss", loss)
-
         if wandb.run is None:
             return loss
 
@@ -79,37 +75,35 @@ class DDSP(LightningModule):
             # Save impulse-response as audio, once per epoch
             ir = np.flip(self.reverb.ir[:, 0].cpu().numpy().T)
             ir = wandb.Audio(ir, sample_rate=SAMPLE_RATE)
+            audios = []
+            loudness_plots = []
+            overtone_images = []
+            noise_images = []
+
+            _, master_amp, overtone_amps = harm_ctrl
+            for wav, m_amp, overtones, noises in zip(y, master_amp, overtone_amps, noise_ctrl):
+                audios.append(wandb.Audio(wav.cpu().numpy().T, sample_rate=SAMPLE_RATE))
+                # Generate inferred harmonic oscillator master amplitude plot
+                loudness = m_amp[0].cpu().numpy()
+                loudness_plots.append(time_plot(loudness, "loudness"))
+                # Generate noise band controls
+                im_noise = noises[0].cpu().numpy()
+                im_noise /= im_noise.max()
+                noise_images.append(wandb.Image(im_noise * 255))
+                # Generate overtone controls
+                im_overtones = overtones[0].cpu().numpy()
+                im_overtones /= im_overtones.max()
+                overtone_images.append(wandb.Image(im_overtones * 255))
 
             # Log reverb once
             wandb.log(
                 {
+                    "val/loss": loss,
                     "ir": ir,
-                }
-            )
-
-        # Log other learned parameters, 4 samples each
-        _, master_amp, overtone_amps = harm_ctrl
-        if batch_nb < 4:
-            # Generate audio
-            audio = wandb.Audio(y[0].cpu().numpy().T, sample_rate=SAMPLE_RATE)
-            # Generate inferred harmonic oscillator master amplitude plot
-            loudness = master_amp[0, 0].cpu().numpy()
-            loudness_plot = time_plot(loudness, "loudness")
-            # Generate noise band controls
-            im_noise = noise_ctrl[0, 0].cpu().numpy()
-            im_noise /= im_noise.max()
-            noise_plot = wandb.Image(im_noise * 255)
-            # Generate overtone controls
-            im_overtones = overtone_amps[0, 0].cpu().numpy()
-            im_overtones /= im_overtones.max()
-            overtone_plot = wandb.Image(im_overtones * 255)
-
-            wandb.log(
-                {
-                    f"{batch_nb}": audio,
-                    f"loudness_{batch_nb}": loudness_plot,
-                    f"overtones_{batch_nb}": overtone_plot,
-                    f"noise_bands_{batch_nb}": noise_plot,
+                    "pred_waves": audios,
+                    "loudness_envelops": loudness_plots,
+                    "overtones": overtone_images,
+                    "noise_bands": noise_images,
                 }
             )
 
