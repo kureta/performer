@@ -55,11 +55,11 @@ class TransformerModel(nn.Module):
 
     def __init__(self, n_units=512, n_heads=2, n_hidden=1024, n_layers=3, dropout=0.1):
         super().__init__()
-        self.pos_encoder = PositionalEncoding(n_units, dropout, 1251)
+        self.pos_encoder = PositionalEncoding(n_units, dropout, 1001)
         encoder_layers = nn.TransformerEncoderLayer(n_units, n_heads, n_hidden, dropout)
         self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers)
         self.n_units = n_units
-        self.src_mask = self._generate_square_subsequent_mask(1251)
+        self.src_mask = self._generate_square_subsequent_mask(1001).cuda()
 
     @staticmethod
     def _generate_square_subsequent_mask(sz):
