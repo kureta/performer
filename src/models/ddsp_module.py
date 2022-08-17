@@ -73,6 +73,7 @@ class DDSP(LightningModule):
             loss = distance(x, y)
 
         self.log("val/loss", loss)
+
         if wandb.run is None:
             return loss
 
@@ -93,14 +94,15 @@ class DDSP(LightningModule):
                 # Generate noise band controls
                 im_noise = noises[0].cpu().numpy()
                 im_noise /= im_noise.max()
-                noise_images.append(wandb.Image(im_noise * 255))
+                im_noise *= 255
+                noise_images.append(wandb.Image(im_noise))
                 # Generate overtone controls
                 im_overtones = overtones[0].cpu().numpy()
                 im_overtones /= im_overtones.max()
-                overtone_images.append(wandb.Image(im_overtones * 255))
+                im_overtones *= 255
+                overtone_images.append(wandb.Image(im_overtones))
 
             loudness_plots = multiline_time_plot(amps, "loudness")
-            # Log reverb once
             wandb.log(
                 {
                     "ir": ir,
