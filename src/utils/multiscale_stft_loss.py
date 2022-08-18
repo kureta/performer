@@ -24,7 +24,7 @@ def multiscale_stft(signal, scales, overlap):
             s,
             int(s * (1 - overlap)),
             s,
-            torch.hann_window(s).to(signal),
+            torch.hann_window(s).to(signal.device),
             center=True,
             normalized=True,
             return_complex=True,

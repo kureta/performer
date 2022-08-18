@@ -47,7 +47,7 @@ hydra:
     params:
       model.lr: interval(0.0001, 0.1)
       model.weight_decay: interval(0.001, 0.1)
-      model.transformer_heads: choice(2, 4, 8)
-      model.transformer_hidden: choice(256, 512, 1024)
-      model.transformer_layers: choice(3, 4, 5, 6)
-      model.transformer_units: choice(256, 512, 1024)
+      model.mlp_units: choice(256, 512)
+      model.gru_units: choice(256, 512)
+      model.mlp_layers: choice(1, 2, 3, 4)
+      model.gru_layers: choice(1, 2, 3, 4)
