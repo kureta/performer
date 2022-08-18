@@ -3,7 +3,7 @@ import torch
 import wandb
 from pytorch_lightning import LightningModule
 
-from src.models.components.controller import TransformerController
+from src.models.components.controller import Controller, TransformerController
 from src.models.components.filtered_noise import FilteredNoise
 from src.models.components.harmonic_oscillator import HarmonicOscillator
 from src.models.components.reverb import ConvolutionalReverb
@@ -35,15 +35,35 @@ class DDSP(LightningModule):
         gru_units: int = 512,
         gru_layers: int = 1,
         lr=0.003,
+        weight_decay=0.1,
+        transformer_units=512,
+        transformer_hidden=512,
+        transformer_heads=2,
+        transformer_layers=3,
+        controller="gru",
     ):
         super().__init__()
         self.save_hyperparameters()
-        # self.controller = Controller(
-        #     n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
-        # )
-        self.controller = TransformerController(
-            in_ch, n_harmonics, n_filters, n_units=512, n_hidden=1024, n_heads=2, n_layers=3
-        )
+
+        match controller:
+            case "gru":
+                self.controller = Controller(
+                    n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
+                )
+            case "transformer":
+                self.controller = TransformerController(
+                    in_ch,
+                    n_harmonics,
+                    n_filters,
+                    n_units=transformer_units,
+                    n_hidden=transformer_hidden,
+                    n_heads=transformer_heads,
+                    n_layers=transformer_layers,
+                )
+                pass
+            case _:
+                raise ValueError("Valid controllers are 'gru', 'transformer']")
+
         self.harmonics = HarmonicOscillator(n_harmonics, in_ch)
         self.noise = FilteredNoise(n_filters, in_ch)
         self.reverb = ConvolutionalReverb(reverb_dur, in_ch, out_ch)
@@ -118,7 +138,17 @@ class DDSP(LightningModule):
         return loss
 
     def test_step(self, batch, batch_nb):
-        pass
+        f0, amp, x = batch
+        with torch.no_grad():
+            harm_ctrl, noise_ctrl = self.controller(f0, amp)
+            harm = self.harmonics(*harm_ctrl)
+            noise = self.noise(noise_ctrl)
+            y = self.reverb(harm + noise)
+            loss = distance(x, y)
+
+        self.log("test/loss", loss, on_step=False, on_epoch=True)
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
+        return torch.optim.AdamW(
+            self.parameters(), lr=self.hparams.lr, weight_decay=self.hparams.weight_decay
+        )

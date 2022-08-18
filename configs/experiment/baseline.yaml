@@ -14,7 +14,8 @@ trainer:
 model:
   n_harmonics: 180
   n_filters: 195
-  lr: 0.001
+  lr: 0.0003
+  weight_decay: 0.1
 
 datamodule:
   batch_size: 8
