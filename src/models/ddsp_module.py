@@ -2,12 +2,14 @@ import numpy as np
 import torch
 import wandb
 from pytorch_lightning import LightningModule
+from torchmetrics import MeanAbsoluteError, MinMetric
 
 from src.models.components.controller import Controller, TransformerController
 from src.models.components.filtered_noise import FilteredNoise
 from src.models.components.harmonic_oscillator import HarmonicOscillator
 from src.models.components.reverb import ConvolutionalReverb
 from src.utils.constants import SAMPLE_RATE
+from src.utils.features import Loudness
 from src.utils.multiscale_stft_loss import distance
 
 
@@ -68,6 +70,14 @@ class DDSP(LightningModule):
         self.noise = FilteredNoise(n_filters, in_ch)
         self.reverb = ConvolutionalReverb(reverb_dur, in_ch, out_ch)
 
+        self.ld = Loudness()
+
+        self.train_acc = MeanAbsoluteError()
+        self.val_acc = MeanAbsoluteError()
+        self.test_acc = MeanAbsoluteError()
+
+        self.val_acc_best = MinMetric()
+
     def forward(self, pitch, loudness):
         harm_ctrl, noise_ctrl = self.controller(pitch, loudness)
         harm = self.harmonics(*harm_ctrl)
@@ -76,14 +86,22 @@ class DDSP(LightningModule):
 
         return out
 
+    def on_train_start(self):
+        self.val_acc_best.reset()
+
     def training_step(self, batch, batch_nb):
         f0, amp, x = batch
         y = self(f0, amp)
         loss = distance(x, y)
 
+        acc = self.train_acc(self.ld.get_amp(x), self.ld.get_amp(y))
         self.log("train/loss", loss)
+        self.log("train/acc", acc)
 
         return loss
+
+    def training_epoch_end(self, outputs):
+        self.train_acc.reset()
 
     def validation_step(self, batch, batch_nb):
         f0, amp, x = batch
@@ -94,7 +112,9 @@ class DDSP(LightningModule):
             y = self.reverb(harm + noise)
             loss = distance(x, y)
 
+        acc = self.val_acc(self.ld.get_amp(x), self.ld.get_amp(y))
         self.log("val/loss", loss)
+        self.log("val/acc", acc)
 
         if wandb.run is None:
             return loss
@@ -119,8 +139,14 @@ class DDSP(LightningModule):
                 im_noise *= 255
                 noise_images.append(wandb.Image(im_noise))
                 # Generate overtone controls
-                im_overtones = overtones[0].cpu().numpy()
-                im_overtones /= im_overtones.max()
+                im_overtones = overtones[0]
+                im_overtones = 10 * torch.log10(
+                    torch.maximum(
+                        torch.tensor(1e-10, device=im_overtones.device), im_overtones**2
+                    )
+                )
+                im_overtones = torch.maximum(im_overtones, im_overtones.max() - 80.0)
+                im_overtones = (im_overtones + 80.0) / 80.0
                 im_overtones *= 255
                 overtone_images.append(wandb.Image(im_overtones))
 
@@ -137,6 +163,12 @@ class DDSP(LightningModule):
 
         return loss
 
+    def validation_epoch_end(self, outputs):
+        acc = self.val_acc.compute()
+        self.val_acc_best.update(acc)
+        self.log("val/acc_best", self.val_acc_best.compute())
+        self.val_acc.reset()
+
     def test_step(self, batch, batch_nb):
         f0, amp, x = batch
         with torch.no_grad():
@@ -146,7 +178,14 @@ class DDSP(LightningModule):
             y = self.reverb(harm + noise)
             loss = distance(x, y)
 
-        self.log("test/loss", loss, on_step=False, on_epoch=True)
+        acc = self.test_acc(self.ld.get_amp(x), self.ld.get_amp(y))
+        self.log("test/loss", loss)
+        self.log("test/acc", acc)
+
+        return loss
+
+    def test_epoch_end(self, outputs):
+        self.test_acc.reset()
 
     def configure_optimizers(self):
         return torch.optim.AdamW(
