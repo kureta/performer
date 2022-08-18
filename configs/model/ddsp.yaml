@@ -9,7 +9,7 @@ mlp_units: 512
 mlp_layers: 3
 gru_units: 512
 gru_layers: 3
-lr: 0.0003
+lr: 0.0001
 weight_decay: 0.001
 transformer_units: 512
 transformer_hidden: 512
