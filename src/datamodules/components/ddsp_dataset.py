@@ -14,7 +14,9 @@ from src.utils.features import Loudness, get_f0
 log = utils.get_pylogger(__name__)
 
 
-def generate_data(wav_dir: Path, path: Path, example_duration: int, example_hop_length: int):
+def generate_data(
+    wav_dir: Path, path: Path, example_duration: int, example_hop_length: int, fmin=31.7
+):
     ld = Loudness().cuda()
 
     wav_files = list(wav_dir.glob("*.[wav]*"))
@@ -40,7 +42,7 @@ def generate_data(wav_dir: Path, path: Path, example_duration: int, example_hop_
     for audio in tqdm(wav_data):
         audio = F.pad(audio.unsqueeze(0), (N_FFT // 2, N_FFT // 2)).cuda()
         loudness = ld.get_amp(audio)
-        f0 = get_f0(audio)
+        f0 = get_f0(audio, fmin=fmin)
 
         ld_data.append(loudness[0].cpu())
         f0_data.append(f0[0].cpu())
@@ -56,7 +58,7 @@ def generate_data(wav_dir: Path, path: Path, example_duration: int, example_hop_
 
 
 class DDSPDataset(Dataset):
-    def __init__(self, path, wav_dir=None, example_duration=4, example_hop_length=1):
+    def __init__(self, path, wav_dir=None, example_duration=4, example_hop_length=1, fmin=31.7):
         super().__init__()
         example_duration *= SAMPLE_RATE
         example_hop_length *= SAMPLE_RATE
@@ -81,7 +83,7 @@ class DDSPDataset(Dataset):
             if wav_dir is None or not wav_dir.is_dir():
                 raise FileNotFoundError(f"Wave files directory {wav_dir} does not exist.")
 
-            features = generate_data(wav_dir, path, example_duration, example_hop_length)
+            features = generate_data(wav_dir, path, example_duration, example_hop_length, fmin)
 
         self.audio = features["audio"]
         self.loudness = features["loudness"]

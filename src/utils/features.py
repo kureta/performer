@@ -74,7 +74,7 @@ def denormalize_f0(x):
     return cents_to_freqs(bins_to_cents(x * (CREPE_N_BINS - 1)))
 
 
-def get_f0(x, batch_size=128):
+def get_f0(x, fmin=31.7, batch_size=128):
     device = x.device
     # to mono and resample
     x = AF.resample(x.mean(1), SAMPLE_RATE, CREPE_SAMPLE_RATE)
@@ -84,7 +84,7 @@ def get_f0(x, batch_size=128):
         sample_rate=CREPE_SAMPLE_RATE,
         hop_length=CREPE_HOP_LENGTH,
         pad=False,
-        fmin=31.7,
+        fmin=fmin,
         batch_size=batch_size,
         decoder=torchcrepe.decode.weighted_argmax,
         device=device,

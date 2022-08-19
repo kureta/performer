@@ -16,6 +16,7 @@ class DDSPDataModule(LightningDataModule):
         batch_size,
         num_workers,
         pin_memory,
+        fmin=31.7,
     ):
         super().__init__()
         self.save_hyperparameters()
@@ -25,7 +26,13 @@ class DDSPDataModule(LightningDataModule):
         self.data_test = None
 
     def prepare_data(self):
-        DDSPDataset(self.hparams.data_path, self.hparams.wav_dir)
+        DDSPDataset(
+            self.hparams.data_path,
+            self.hparams.wav_dir,
+            example_duration=self.hparams.example_duration,
+            example_hop_length=self.hparams.example_hop_length,
+            fmin=self.hparams.fmin,
+        )
 
     def setup(self, stage=None):
         if not self.data_train and not self.data_val and not self.data_test:
@@ -34,6 +41,7 @@ class DDSPDataModule(LightningDataModule):
                 self.hparams.wav_dir,
                 example_duration=self.hparams.example_duration,
                 example_hop_length=self.hparams.example_hop_length,
+                fmin=self.hparams.fmin,
             )
             self.data_train, self.data_val, self.data_test = random_split(
                 dataset=dataset,
