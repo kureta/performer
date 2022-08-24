@@ -43,9 +43,11 @@ class DDSPDataModule(LightningDataModule):
                 example_hop_length=self.hparams.example_hop_length,
                 fmin=self.hparams.fmin,
             )
+            train, val, test = (int(x * len(dataset)) for x in self.hparams.train_val_test_split)
+            test += len(dataset) - (train + test + val)
             self.data_train, self.data_val, self.data_test = random_split(
                 dataset=dataset,
-                lengths=self.hparams.train_val_test_split,
+                lengths=[train, val, test],
                 generator=torch.Generator().manual_seed(42),
             )
 
