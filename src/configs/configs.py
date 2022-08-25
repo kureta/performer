@@ -4,8 +4,6 @@ from pathlib import Path
 from hydra.core.config_store import ConfigStore
 from hydra_zen import MISSING, make_config
 
-from src.configs.hydra import Hydra
-
 # Experiment Configs
 # - Replaces config.yaml
 Config = make_config(
@@ -21,7 +19,6 @@ Config = make_config(
     ],
     #
     # Experiment Modules
-    hydra=Hydra,
     paths=MISSING,
     data=MISSING,
     model=MISSING,
