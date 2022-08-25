@@ -64,7 +64,7 @@ CIFAR10DataModule = builds(
         train=False,
     ),
     test_dataset=CIFAR10(root="${..root}", transform=TestTransforms, train=False),
-    zen_meta=dict(root="${data_dir}"),
+    zen_meta=dict(root="${paths.data_dir}"),
 )
 
 DDSPDataModule = sbuilds(ddsp_datamodule.DDSPDataModule)

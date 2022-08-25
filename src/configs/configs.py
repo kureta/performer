@@ -27,7 +27,6 @@ Config = make_config(
     trainer=MISSING,
     #
     # Experiment Constants
-    data_dir=str(Path().home() / ".data"),
     random_seed=928,
     testing=False,
     ckpt_path=None,
