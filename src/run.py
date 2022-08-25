@@ -7,13 +7,12 @@ import pytorch_lightning as pl
 import torch
 from hydra.utils import instantiate
 from omegaconf import DictConfig
-from torch.nn import Module
 
 root = pyrootutils.setup_root(__file__, dotenv=True, pythonpath=True)
 
 
 # Experiment Task Function
-def task_fn(cfg: DictConfig) -> Module:
+def task_fn(cfg: DictConfig) -> None:
     # Set seed BEFORE instantiating anything
     pl.seed_everything(cfg.random_seed, workers=True)
 
@@ -36,8 +35,6 @@ def task_fn(cfg: DictConfig) -> Module:
     else:
         trainer.fit(pl_module, datamodule=data)
 
-    return pl_module
-
 
 @hydra.main(version_base="1.2", config_path=None, config_name="config")
 def main(cfg: DictConfig):
@@ -55,5 +52,4 @@ def register_configs():
 
 if __name__ == "__main__":
     register_configs()
-
     main()

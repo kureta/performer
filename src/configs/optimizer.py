@@ -8,6 +8,7 @@ from src.utils.utils import pbuilds
 ####################################
 SGD = pbuilds(torch.optim.SGD, lr=0.1, momentum=0.9)
 Adam = pbuilds(torch.optim.Adam, lr=0.1)
+AdamW = pbuilds(torch.optim.AdamW, lr=0.1, weight_decay=0.1)
 StepLR = pbuilds(torch.optim.lr_scheduler.StepLR, step_size=50, gamma=0.1)
 
 
@@ -15,4 +16,5 @@ def register_configs() -> None:
     cs = ConfigStore.instance()
     cs.store(group="model/optim", name="sgd", node=SGD)
     cs.store(group="model/optim", name="adam", node=Adam)
+    cs.store(group="model/optim", name="adamw", node=AdamW)
     cs.store(group="model/optim", name="none", node=None)

@@ -28,22 +28,22 @@ def multiline_time_plot(values, name):
 class DDSP(LightningModule):
     def __init__(
         self,
-        n_harmonics: int = 128,
-        n_filters: int = 64,
+        n_harmonics: int = 180,
+        n_filters: int = 195,
         in_ch: int = 1,
         out_ch: int = 2,
         reverb_dur: int = 3,
         mlp_units: int = 512,
         mlp_layers: int = 3,
         gru_units: int = 512,
-        gru_layers: int = 1,
-        lr=0.003,
-        weight_decay=0.1,
+        gru_layers: int = 3,
         transformer_units=512,
         transformer_hidden=512,
         transformer_heads=2,
         transformer_layers=3,
         controller="gru",
+        optim=None,
+        lr_scheduler=None,
     ):
         super().__init__()
         self.save_hyperparameters()
@@ -192,6 +192,12 @@ class DDSP(LightningModule):
         self.test_acc.reset()
 
     def configure_optimizers(self):
-        return torch.optim.AdamW(
-            self.parameters(), lr=self.hparams.lr, weight_decay=self.hparams.weight_decay
-        )
+        if self.hparams.optim is not None:
+            optim = self.optim(self.parameters())
+
+            if self.lr_scheduler is not None:
+                sched = [self.lr_scheduler(optim)]
+                return [optim], sched
+
+            return optim
+        return None

@@ -15,6 +15,7 @@ Config = make_config(
         {"model": "resnet18"},
         {"model/optim": "sgd"},
         {"trainer": "trainer"},
+        {"trainer/callbacks": "default"},
         {"paths": "paths"},
     ],
     #
