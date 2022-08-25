@@ -1,4 +1,6 @@
 import torch
+from torch.utils.data import Dataset
+from torch.utils.data import random_split as _random_split
 
 
 def detect_anomaly(var: torch.Tensor, name: str):
@@ -39,3 +41,18 @@ def freqs_to_cents(freq):
 
 def cents_to_bins(cents):
     return (cents - 1997.3794084376191) / 20
+
+
+def random_split(
+    dataset: Dataset,
+    val_split: float = 0.1,
+    train: bool = True,
+    random_seed: int = 32,
+) -> Dataset:
+    g = torch.Generator().manual_seed(random_seed)
+    n_val = int(len(dataset) * val_split)
+    n_train = len(dataset) - n_val
+    train_data, val_data = _random_split(dataset, [n_train, n_val], g)
+    if train:
+        return train_data
+    return val_data

@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List
 
 import hydra
+from hydra_zen import make_custom_builds_fn
 from omegaconf import DictConfig
 from pytorch_lightning import Callback
 from pytorch_lightning.loggers import LightningLoggerBase
@@ -203,3 +204,7 @@ def close_loggers() -> None:
         if wandb.run:
             log.info("Closing wandb!")
             wandb.finish()
+
+
+sbuilds = make_custom_builds_fn(populate_full_signature=True)
+pbuilds = make_custom_builds_fn(zen_partial=True, populate_full_signature=True)
