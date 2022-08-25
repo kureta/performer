@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Massachusetts Institute of Technology
-import inspect
+import pkgutil
 
 import hydra
 import pyrootutils
@@ -48,9 +48,9 @@ def main(cfg: DictConfig):
 def register_configs():
     import src.configs
 
-    for name, obj in inspect.getmembers(src.configs):
-        if not name.startswith("_") and not name == "inspect":
-            obj.register_configs()
+    for loader, module_name, is_pkg in pkgutil.walk_packages(src.configs.__path__):
+        _module = loader.find_module(module_name).load_module(module_name)
+        _module.register_configs()
 
 
 if __name__ == "__main__":
