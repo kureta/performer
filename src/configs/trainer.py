@@ -12,7 +12,7 @@ TrainerConf = builds(
     accelerator="gpu",
     devices=builds(torch.cuda.device_count),  # use all GPUs on the system
     num_nodes=1,
-    max_epochs=100,
+    max_epochs=10000,
     populate_full_signature=True,
 )
 
