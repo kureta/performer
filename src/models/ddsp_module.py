@@ -94,7 +94,6 @@ class DDSP(LightningModule):
         f0, amp, x = batch
         y = self(f0, amp)
         loss = distance(x, y)
-        loss += F.l1_loss(self.ld.get_amp(x), self.ld.get_amp(y))
 
         acc = self.train_acc(self.ld.get_amp(x), self.ld.get_amp(y))
         self.log("train/loss", loss)
@@ -113,7 +112,6 @@ class DDSP(LightningModule):
             noise = self.noise(noise_ctrl)
             y = self.reverb(harm + noise)
             loss = distance(x, y)
-            loss += F.l1_loss(self.ld.get_amp(x), self.ld.get_amp(y))
 
         acc = self.val_acc(self.ld.get_amp(x), self.ld.get_amp(y))
         self.log("val/loss", loss)
@@ -180,7 +178,6 @@ class DDSP(LightningModule):
             noise = self.noise(noise_ctrl)
             y = self.reverb(harm + noise)
             loss = distance(x, y)
-            loss += F.l1_loss(self.ld.get_amp(x), self.ld.get_amp(y))
 
         acc = self.test_acc(self.ld.get_amp(x), self.ld.get_amp(y))
         self.log("test/loss", loss)
