@@ -23,7 +23,7 @@ ImageClassification = builds(
     lr_scheduler=StepLR,
     metrics=builds(
         MetricCollection,
-        builds(dict, Accuracy=builds(Accuracy)),
+        builds(dict, accuracy=builds(Accuracy)),
         hydra_convert="all",
     ),
 )

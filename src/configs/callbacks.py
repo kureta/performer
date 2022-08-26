@@ -22,7 +22,7 @@ ModelCheckpointConf = sbuilds(
 
 EarlyStoppingConf = sbuilds(
     EarlyStopping,
-    monitor="val/loss",
+    monitor="val/accuracy",
     patience=100,
     mode="min",
 )

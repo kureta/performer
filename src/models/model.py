@@ -62,6 +62,9 @@ class BaseImageClassification(LightningModule):
 
         self.metrics = metrics
 
+        # To build computation graph with tensorboard logger
+        self.example_input_array = torch.randn(1, 3, 32, 32)
+
     def forward(self, x: Tensor) -> Tensor:
         """Forward method for Module."""
         return self.model(x)
@@ -83,25 +86,25 @@ class BaseImageClassification(LightningModule):
             return optim
         return None
 
-    def step(self, batch: Tuple[Tensor, Tensor], stage: str = "Train") -> Dict[str, Tensor]:
+    def step(self, batch: Tuple[Tensor, Tensor], stage: str = "train") -> Dict[str, Tensor]:
         """Executes common step across training, validation and test."""
         x, y = batch
         logits = self.forward(x)
         loss = self.criterion(logits, y)
-        self.log(f"{stage}/Loss", loss)
+        self.log(f"{stage}/loss", loss)
         #
         # Normally metrics would be updated here (See below when needing to support DP)
         #
         return dict(loss=loss, pred=self.predictor(logits), target=y)
 
     def training_step(self, batch: Tuple[Tensor, Tensor], *args, **kwargs) -> Dict[str, Tensor]:
-        return self.step(batch, stage="Train")
+        return self.step(batch, stage="train")
 
     def validation_step(self, batch: Tuple[Tensor, Tensor], *args, **kwargs) -> Dict[str, Tensor]:
-        return self.step(batch, stage="Val")
+        return self.step(batch, stage="val")
 
     def test_step(self, batch: Tuple[Tensor, Tensor], *args, **kwargs) -> Dict[str, Tensor]:
-        return self.step(batch, stage="Test")
+        return self.step(batch, stage="test")
 
     # To support both DDP and DP we need to use `<stage>_step_end` to update metrics
     # See: https://github.com/PyTorchLightning/pytorch-lightning/pull/4494
@@ -109,26 +112,26 @@ class BaseImageClassification(LightningModule):
     def training_step_end(self, outputs: Union[Tensor, Dict]) -> torch.Tensor:
         if isinstance(outputs, dict):
             loss = outputs["loss"].mean()
-            self.update_metrics(outputs, stage="Train")
+            self.update_metrics(outputs, stage="train")
             return loss
         return outputs
 
     def validation_step_end(self, outputs: Union[Tensor, Dict]) -> Tensor:
         if isinstance(outputs, dict):
             loss = outputs["loss"].mean()
-            self.update_metrics(outputs, stage="Val")
+            self.update_metrics(outputs, stage="val")
             return loss
         return outputs
 
     def test_step_end(self, outputs: Union[Tensor, Dict]) -> Tensor:
         if isinstance(outputs, dict):
             loss = outputs["loss"].mean()
-            self.update_metrics(outputs, stage="Test")
+            self.update_metrics(outputs, stage="test")
             return loss
         return outputs
 
     def update_metrics(
-        self, outputs: Dict[Literal["pred", "target"], Tensor], stage: str = "Train"
+        self, outputs: Dict[Literal["pred", "target"], Tensor], stage: str = "train"
     ):
         if "pred" not in outputs or "target" not in outputs:
             raise TypeError("outputs dictionary expected contain 'pred' and 'target' keys.")

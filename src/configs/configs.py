@@ -16,7 +16,7 @@ Config = make_config(
         {"model/optim": "sgd"},
         {"trainer": "trainer"},
         {"trainer/callbacks": "default"},
-        {"trainer/logger": "wandb"},
+        {"trainer/logger": "multi"},
         {"paths": "paths"},
     ],
     #
