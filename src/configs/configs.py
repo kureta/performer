@@ -11,9 +11,9 @@ Config = make_config(
     # Experiment Defaults: See https://hydra.cc/docs/next/advanced/defaults_list
     defaults=[
         "_self_",  # See https://hydra.cc/docs/upgrades/1.0_to_1.1/default_composition_order
-        {"data": "cifar10"},
-        {"model": "resnet18"},
-        {"model/optim": "sgd"},
+        {"data": "ddsp"},
+        {"model": "ddsp"},
+        {"model/optim": "adam"},
         {"trainer": "trainer"},
         {"trainer/callbacks": "default"},
         {"trainer/logger": "multi"},
@@ -27,7 +27,7 @@ Config = make_config(
     trainer=MISSING,
     #
     # Experiment Constants
-    random_seed=928,
+    random_seed=31415,
     testing=False,
     ckpt_path=None,
     task_name="train",

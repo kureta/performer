@@ -67,7 +67,13 @@ CIFAR10DataModule = builds(
     zen_meta=dict(root="${paths.data_dir}"),
 )
 
-DDSPDataModule = sbuilds(ddsp_datamodule.DDSPDataModule)
+DDSPDataModule = sbuilds(
+    ddsp_datamodule.DDSPDataModule,
+    batch_size=8,
+    data_path="${paths.data_dir}/cello_samples.pth",
+    wav_dir="/home/kureta/Music/Cello Samples",
+    train_val_test_split=[0.85, 0.05, 0.1],
+)
 
 
 def register_configs() -> None:

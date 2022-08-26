@@ -46,7 +46,7 @@ class DDSP(LightningModule):
         lr_scheduler=None,
     ):
         super().__init__()
-        self.save_hyperparameters()
+        self.save_hyperparameters(logger=False)
 
         match controller:
             case "gru":
@@ -193,10 +193,10 @@ class DDSP(LightningModule):
 
     def configure_optimizers(self):
         if self.hparams.optim is not None:
-            optim = self.optim(self.parameters())
+            optim = self.hparams.optim(self.parameters())
 
-            if self.lr_scheduler is not None:
-                sched = [self.lr_scheduler(optim)]
+            if self.hparams.lr_scheduler is not None:
+                sched = [self.hparams.lr_scheduler(optim)]
                 return [optim], sched
 
             return optim

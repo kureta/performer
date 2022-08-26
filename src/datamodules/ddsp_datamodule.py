@@ -10,16 +10,16 @@ class DDSPDataModule(LightningDataModule):
         self,
         data_path,
         wav_dir,
-        example_duration,
-        example_hop_length,
         train_val_test_split,
-        batch_size,
-        num_workers,
-        pin_memory,
+        example_duration=4,
+        example_hop_length=1,
+        batch_size=8,
+        num_workers=8,
+        pin_memory=True,
         fmin=31.7,
     ):
         super().__init__()
-        self.save_hyperparameters()
+        self.save_hyperparameters(logger=False)
 
         self.data_train = None
         self.data_val = None

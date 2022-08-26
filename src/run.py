@@ -13,6 +13,8 @@ root = pyrootutils.setup_root(__file__, dotenv=True, pythonpath=True)
 
 # Experiment Task Function
 def task_fn(cfg: DictConfig) -> None:
+    from src.utils import rich_utils
+
     # Set seed BEFORE instantiating anything
     pl.seed_everything(cfg.random_seed, workers=True)
 
@@ -29,6 +31,7 @@ def task_fn(cfg: DictConfig) -> None:
     # The PL Trainer
     trainer = instantiate(cfg.trainer)
 
+    rich_utils.print_config_tree(cfg, resolve=True, save_to_file=True)
     # Set training or testing mode
     if cfg.testing:
         trainer.test(pl_module, datamodule=data)

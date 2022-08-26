@@ -7,11 +7,11 @@ from src.utils.utils import sbuilds
 WandBConf = sbuilds(
     pytorch_lightning.loggers.WandbLogger,
     save_dir="${paths.output_dir}",
-    offline=True,  # TODO: Temporary
+    offline=False,
     id=None,
     anonymous=None,
-    project="dev",
-    log_model=False,
+    project="performer",
+    log_model=True,
     prefix="",
     group="",
     tags=[],
