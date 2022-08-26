@@ -33,6 +33,14 @@ def multiscale_stft(signal, scales, overlap):
     return stfts
 
 
+def lin_distance(x, y):
+    return torch.norm(x - y)
+
+
+def log_distance(x, y):
+    return torch.norm(torch.log(x + 1e-7) - torch.log(y + 1e-7))
+
+
 def log_l1_loss(x, y):
     return F.l1_loss(torch.log(x + 1e-7), torch.log(y + 1e-7))
 
@@ -50,7 +58,7 @@ def distance(x, y):
     x = multiscale_stft(x, scales, 0.75)
     y = multiscale_stft(y, scales, 0.75)
 
-    lin = sum(map(cosine_loss, x, y))
-    log = sum(map(log_cosine_loss, x, y))
+    lin = sum(map(F.l1_loss, x, y)) / len(scales)
+    log = sum(map(log_l1_loss, x, y)) / len(scales)
 
     return lin + log
