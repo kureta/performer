@@ -7,7 +7,7 @@ from src.utils.utils import pbuilds
 # PyTorch Optimizer and LR Scheduler
 ####################################
 SGD = pbuilds(torch.optim.SGD, lr=0.1, momentum=0.9)
-Adam = pbuilds(torch.optim.Adam, lr=0.1)
+Adam = pbuilds(torch.optim.Adam, lr=0.0001)
 AdamW = pbuilds(torch.optim.AdamW, lr=0.1, weight_decay=0.1)
 StepLR = pbuilds(torch.optim.lr_scheduler.StepLR, step_size=50, gamma=0.1)
 
