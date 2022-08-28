@@ -1,0 +1,4 @@
+outs:
+- md5: cad50e6b1174626189298e0f3146923f
+  size: 100508249
+  path: violin_baseline.ckpt
