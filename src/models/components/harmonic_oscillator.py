@@ -2,10 +2,8 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F  # noqa
-from einops.layers.torch import Reduce
 
 from src.utils.constants import HOP_LENGTH, SAMPLE_RATE
-from src.utils.helpers import bins_to_cents, cents_to_freqs
 
 
 class HarmonicOscillator(nn.Module):
@@ -17,8 +15,6 @@ class HarmonicOscillator(nn.Module):
 
         harmonics = torch.arange(1, self.n_harmonics + 1, step=1)
         self.register_buffer("harmonics", harmonics, persistent=False)
-
-        self.sum_sinusoids = Reduce("b c o t -> b c t", "sum")
 
     def forward(
         self, f0: torch.Tensor, master_amplitude: torch.Tensor, overtone_amplitudes: torch.Tensor
@@ -71,6 +67,6 @@ class HarmonicOscillator(nn.Module):
 
         # scale sinusoids by their corresponding amplitudes and sum them to get the final signal
         sinusoids = torch.einsum("bcot,bcot->bcot", sinusoids, overtone_amplitudes)
-        signal = self.sum_sinusoids(sinusoids)
+        signal = torch.sum(sinusoids, dim=2)
 
         return signal

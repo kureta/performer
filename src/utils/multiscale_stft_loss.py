@@ -1,6 +1,5 @@
 import torch
 import torch.nn.functional as F
-from einops import rearrange
 
 
 def multiscale_stft(signal, scales, overlap):
@@ -16,7 +15,9 @@ def multiscale_stft(signal, scales, overlap):
     overlap: float
         overlap between windows ( 0 - 1 )
     """
-    signal = rearrange(signal, "b c t -> (b c) t")
+    b, c, t = signal.shape
+    # b c t -> (b c) t
+    signal = signal.reshape((b * c, t))
     stfts = []
     for s in scales:
         S = torch.stft(  # noqa
