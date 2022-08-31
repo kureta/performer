@@ -60,8 +60,12 @@ def process(filepath):
     return f0_, amp_
 
 
+st.text("Select a folder")
+folder_name = file_selector("/home/kureta/Music")
+st.write(f"{folder_name} selected.")
+
 st.text("Select a .wav file")
-filename = file_selector("/home/kureta/Music/Violin Samples")
+filename = file_selector(folder_name)
 st.write(f"{filename} selected.")
 
 with open(filename, "rb") as file:
