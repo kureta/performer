@@ -122,7 +122,7 @@ class DDSP(LightningModule):
 
         if batch_nb == 0:
             # Save impulse-response as audio, once per epoch
-            ir = np.flip(self.reverb.ir[:, 0].cpu().numpy().T)
+            ir = self.reverb.ir[:, 0].cpu().numpy().T
             ir = wandb.Audio(ir, sample_rate=SAMPLE_RATE)
             audios = []
             amps = []
