@@ -4,7 +4,7 @@ import torch.nn.functional as F  # noqa
 
 from src.utils.constants import SAMPLE_RATE
 
-from .fft_conv import fft_conv1d
+from .fft_conv import fft_conv1d, fft_conv1d_new
 
 
 class ConvolutionalReverb(nn.Module):
@@ -33,9 +33,12 @@ class ConvolutionalReverb(nn.Module):
 
     def forward(self, x: torch.Tensor):
         ir = torch.concat(
-            [torch.tanh(self.ir), torch.ones(*self.ir.shape[:-1], 1, device=x.device)], dim=-1
+            # [torch.tanh(self.ir), torch.ones(*self.ir.shape[:-1], 1, device=x.device)], dim=-1
+            [torch.ones(*self.ir.shape[:-1], 1, device=x.device), self.ir],
+            dim=-1,
         )
-        out = F.pad(x, (ir.shape[-1] - 1, 0))
-        out = fft_conv1d(out, ir, block_ratio=self.block_ratio)
+        # out = F.pad(x, (ir.shape[-1] - 1, 0))
+        # out = fft_conv1d(out, ir, block_ratio=self.block_ratio)
+        out = fft_conv1d_new(x, ir)
 
         return out

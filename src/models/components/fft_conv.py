@@ -107,3 +107,18 @@ def fft_conv1d(
     if bias is not None:
         out += bias[:, None]
     return out
+
+
+def fft_conv1d_new(signal, ir):
+    end_pad = signal.shape[-1] - ir.shape[-1]
+    padded_ir = F.pad(ir, (0, end_pad))
+
+    ir_z = fft.rfft(padded_ir)
+    signal_z = fft.rfft(signal)
+
+    fft_conv_out = ir_z * signal_z.transpose(0, 1)
+    fft_conv_out = fft_conv_out.transpose(1, 0)
+
+    fft_conv_out = fft.irfft(fft_conv_out)
+
+    return fft_conv_out

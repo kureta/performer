@@ -1,6 +1,5 @@
 import numpy as np
 import torch
-import torch.nn.functional as F
 import wandb
 from pytorch_lightning import LightningModule
 from torchmetrics import MeanAbsoluteError, MinMetric
@@ -47,6 +46,7 @@ class DDSP(LightningModule):
     ):
         super().__init__()
         self.save_hyperparameters(logger=False)
+        self.example_input_array = (torch.randn(4, 1, 1001), torch.randn(4, 1, 1001))
 
         match controller:
             case "gru":
