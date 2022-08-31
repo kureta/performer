@@ -110,15 +110,24 @@ def fft_conv1d(
 
 
 def fft_conv1d_new(signal, ir):
-    end_pad = signal.shape[-1] - ir.shape[-1]
+    sig_pad = ir.shape[-1] - 1
+    padded_signal = F.pad(signal, (sig_pad, sig_pad))
+
+    end_pad = padded_signal.shape[-1] - ir.shape[-1]
     padded_ir = F.pad(ir, (0, end_pad))
 
     ir_z = fft.rfft(padded_ir)
-    signal_z = fft.rfft(signal)
+    signal_z = fft.rfft(padded_signal)
 
-    fft_conv_out = ir_z * signal_z.transpose(0, 1)
-    fft_conv_out = fft_conv_out.transpose(1, 0)
+    fft_conv_out = signal_z.transpose(0, 1) * ir_z.conj()
+    fft_conv_out = fft_conv_out.transpose(0, 1)
 
     fft_conv_out = fft.irfft(fft_conv_out)
 
-    return fft_conv_out
+    # head = fft_conv_out[:, :, ir.shape[-1] - 1:-ir.shape[-1] - 1]
+    # tail = fft_conv_out[:, :, -ir.shape[-1] - 1:]
+    fft_conv_out = fft_conv_out[..., : padded_signal.size(-1) - ir.size(-1) + 1]
+    head = fft_conv_out[..., : signal.shape[-1]]
+    tail = fft_conv_out[..., -signal.shape[-1] :]
+
+    return head, tail
