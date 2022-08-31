@@ -29,7 +29,7 @@ class ConvolutionalReverb(nn.Module):
 
         # we can train a mono synth and controller, add stereo width using reverb
         # [output dimension, input_dimension, time]
-        return ir * 1e-4
+        return ir
 
     def forward(self, x: torch.Tensor):
         ir = torch.concat([torch.ones(*self.ir.shape[:-1], 1, device=x.device), self.ir], dim=-1)
