@@ -81,7 +81,7 @@ st.text(f"{root}")
 
 model = get_saved_model(filename).cuda()
 
-with torch.no_grad():
+with torch.inference_mode():
     y = model(f0, amp)
 
 st.text(y.shape)
