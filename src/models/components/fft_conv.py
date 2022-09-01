@@ -114,7 +114,7 @@ def fft_conv1d_new(signal, ir):
     padded_signal = F.pad(signal, (sig_pad, sig_pad))
 
     end_pad = padded_signal.shape[-1] - ir.shape[-1]
-    padded_ir = F.pad(ir, (0, end_pad))
+    padded_ir = F.pad(ir.flip(-1), (0, end_pad))
 
     ir_z = fft.rfft(padded_ir)
     signal_z = fft.rfft(padded_signal)
