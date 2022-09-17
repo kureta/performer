@@ -1,4 +1,3 @@
-# Copyright (c) 2021 Massachusetts Institute of Technology
 import pkgutil
 
 import hydra
