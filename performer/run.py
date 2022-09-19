@@ -12,7 +12,7 @@ root = pyrootutils.setup_root(__file__, dotenv=True, pythonpath=True)
 
 # Experiment Task Function
 def task_fn(cfg: DictConfig) -> None:
-    from src.utils import rich_utils
+    from performer.utils import rich_utils
 
     # Set seed BEFORE instantiating anything
     pl.seed_everything(cfg.random_seed, workers=True)
@@ -43,11 +43,11 @@ def main(cfg: DictConfig):
     return task_fn(cfg)
 
 
-# loads all modules under `src.configs` package
+# loads all modules under `performer.configs` package
 def register_configs():
-    import src.configs
+    import performer.configs
 
-    for loader, module_name, is_pkg in pkgutil.walk_packages(src.configs.__path__):
+    for loader, module_name, is_pkg in pkgutil.walk_packages(performer.configs.__path__):
         _module = loader.find_module(module_name).load_module(module_name)
         _module.register_configs()
 

@@ -3,14 +3,14 @@ from hydra.core.config_store import ConfigStore
 from hydra_zen import builds
 from torchmetrics import Accuracy, MetricCollection
 
-from src.configs.optimizer import StepLR
-from src.models.ddsp_module import DDSP as _DDSP
-from src.models.model import (
+from performer.configs.optimizer import StepLR
+from performer.models.ddsp_module import DDSP as _DDSP
+from performer.models.model import (
     BaseImageClassification,
     ResNet18Classifier,
     ResNet50Classifier,
 )
-from src.utils.utils import sbuilds
+from performer.utils.utils import sbuilds
 
 ##########################
 # PyTorch Lightning Module

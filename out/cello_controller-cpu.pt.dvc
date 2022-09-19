@@ -1,0 +1,4 @@
+outs:
+- md5: 98d3acd469b002bf76aca57f8e3d3c27
+  size: 32370191
+  path: cello_controller-cpu.pt

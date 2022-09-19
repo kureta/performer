@@ -2,7 +2,7 @@ from hydra.core.config_store import ConfigStore
 from hydra_zen import builds
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, RichModelSummary
 
-from src.utils.utils import sbuilds
+from performer.utils.utils import sbuilds
 
 RichModelSummaryConf = sbuilds(
     RichModelSummary,

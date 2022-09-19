@@ -1,7 +1,7 @@
 import torch
 from hydra.core.config_store import ConfigStore
 
-from src.utils.utils import pbuilds
+from performer.utils.utils import pbuilds
 
 ####################################
 # PyTorch Optimizer and LR Scheduler

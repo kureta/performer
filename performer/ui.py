@@ -7,8 +7,8 @@ import streamlit as st
 import torch
 import torch.nn.functional as F  # noqa
 
-from src.utils.constants import HOP_LENGTH, N_FFT
-from src.utils.features import Loudness, get_f0
+from performer.utils.constants import HOP_LENGTH, N_FFT
+from performer.utils.features import Loudness, get_f0
 
 root = pyrootutils.setup_root(__file__, dotenv=True, pythonpath=True)
 
@@ -20,7 +20,7 @@ def file_selector(folder_path="."):
 
 
 def get_saved_model(ckpt_path):
-    from src.models.ddsp_module import DDSP
+    from performer.models.ddsp_module import DDSP
 
     model_ = DDSP().load_from_checkpoint(ckpt_path, map_location="cuda")
     model_.eval()

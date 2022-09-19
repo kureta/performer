@@ -4,9 +4,9 @@ from omegaconf import MISSING
 from pytorch_lightning import LightningDataModule
 from torchvision import datasets, transforms
 
-from src.datamodules import ddsp_datamodule
-from src.utils.helpers import random_split
-from src.utils.utils import sbuilds
+from performer.datamodules import ddsp_datamodule
+from performer.utils.helpers import random_split
+from performer.utils.utils import sbuilds
 
 #################
 # CIFAR10 Dataset

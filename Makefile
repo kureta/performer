@@ -27,7 +27,7 @@ test-full: ## Run all tests
 	pytest
 
 train: ## Train the model
-	python src/train.py
+	python performer/train.py
 
 debug: ## Enter debugging mode with pdb
 	#
@@ -36,7 +36,7 @@ debug: ## Enter debugging mode with pdb
 	# - use "h" to print all commands
 	# - use "n" to execute the next line
 	# - use "c" to run until the breakpoint is hit
-	# - use "l" to print src code around current line, "ll" for full function code
+	# - use "l" to print performer code around current line, "ll" for full function code
 	# - docs: https://docs.python.org/3/library/pdb.html
 	#
-	python -m pdb src/train.py debug=default
+	python -m pdb performer/train.py debug=default

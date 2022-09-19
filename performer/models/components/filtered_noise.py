@@ -3,7 +3,7 @@ import torch.fft as fft
 import torch.nn as nn
 import torch.nn.functional as F  # noqa
 
-from src.utils.constants import HOP_LENGTH, N_FFT
+from performer.utils.constants import HOP_LENGTH, N_FFT
 
 
 class FilteredNoise(nn.Module):

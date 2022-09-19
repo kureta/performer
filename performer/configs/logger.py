@@ -2,7 +2,7 @@ import pytorch_lightning.loggers
 from hydra.core.config_store import ConfigStore
 from hydra_zen import builds
 
-from src.utils.utils import sbuilds
+from performer.utils.utils import sbuilds
 
 WandBConf = sbuilds(
     pytorch_lightning.loggers.WandbLogger,

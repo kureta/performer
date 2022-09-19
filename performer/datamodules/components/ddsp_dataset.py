@@ -7,9 +7,9 @@ import torchaudio.functional as AF
 from torch.utils.data import Dataset
 from tqdm import tqdm
 
-from src import utils
-from src.utils.constants import HOP_LENGTH, N_FFT, SAMPLE_RATE
-from src.utils.features import Loudness, get_f0
+from performer import utils
+from performer.utils.constants import HOP_LENGTH, N_FFT, SAMPLE_RATE
+from performer.utils.features import Loudness, get_f0
 
 log = utils.get_pylogger(__name__)
 

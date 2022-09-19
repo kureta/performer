@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F  # noqa
 
-from src.utils.constants import SAMPLE_RATE
+from performer.utils.constants import SAMPLE_RATE
 
 from .fft_conv import fft_conv1d, fft_conv1d_new
 

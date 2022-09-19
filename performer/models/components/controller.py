@@ -59,7 +59,7 @@ class TransformerModel(nn.Module):
         encoder_layers = nn.TransformerEncoderLayer(n_units, n_heads, n_hidden, dropout)
         self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers)
         self.n_units = n_units
-        self.src_mask = self._generate_square_subsequent_mask(1001).cuda()
+        self.performer_mask = self._generate_square_subsequent_mask(1001).cuda()
 
     @staticmethod
     def _generate_square_subsequent_mask(sz):
@@ -69,9 +69,9 @@ class TransformerModel(nn.Module):
         )
         return mask
 
-    def forward(self, src):
-        src = self.pos_encoder(src * math.sqrt(self.n_units))
-        output = self.transformer_encoder(src, self.src_mask)
+    def forward(self, performer):
+        performer = self.pos_encoder(performer * math.sqrt(self.n_units))
+        output = self.transformer_encoder(performer, self.performer_mask)
         return output
 
 
@@ -123,7 +123,11 @@ class TransformerController(nn.Module):
 
 class MLP(nn.Module):
     def __init__(
-        self, n_input: int, n_units: int, n_layer: int, relu: Type[nn.Module] = nn.LeakyReLU
+        self,
+        n_input: int,
+        n_units: int,
+        n_layer: int,
+        relu: Type[nn.Module] = nn.LeakyReLU,
     ):
         super().__init__()
         self.n_layer = n_layer
@@ -219,3 +223,33 @@ class Controller(nn.Module):
         noise_controls = noise_distribution.transpose(1, 2).unsqueeze(1)
 
         return harm_controls, noise_controls
+
+    # DO NOT ENABLE DURING TRAINING
+    # @torch.jit.export
+    def forward_live(
+        self, f0: Tensor, loudness: Tensor, hidden: Tensor
+    ) -> Tuple[Tuple[Tensor, Tensor, Tensor], Tensor, Tensor]:
+        latent_f0 = self.mlp_f0(f0.transpose(1, 2))
+        latent_loudness = self.mlp_loudness(loudness.transpose(1, 2))
+
+        latent = torch.cat((latent_f0, latent_loudness), dim=-1)
+
+        latent, hidden = self.gru(latent)
+
+        latent = torch.cat((latent, latent_f0, latent_loudness), dim=-1)
+        latent = self.mlp_gru(latent)
+
+        overtone_amplitudes = modified_sigmoid(self.dense_harmonic(latent))
+        master_amplitude = modified_sigmoid(self.dense_loudness(latent))
+
+        noise_distribution = self.dense_filter(latent)
+        noise_distribution = modified_sigmoid(noise_distribution)
+
+        harm_controls = (
+            f0,
+            master_amplitude.transpose(1, 2),
+            overtone_amplitudes.transpose(1, 2).unsqueeze(1),
+        )
+        noise_controls = noise_distribution.transpose(1, 2).unsqueeze(1)
+
+        return harm_controls, noise_controls, hidden

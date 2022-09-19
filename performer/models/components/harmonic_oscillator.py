@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F  # noqa
 
-from src.utils.constants import HOP_LENGTH, SAMPLE_RATE
+from performer.utils.constants import HOP_LENGTH, SAMPLE_RATE
 
 
 class HarmonicOscillator(nn.Module):

@@ -4,13 +4,13 @@ import wandb
 from pytorch_lightning import LightningModule
 from torchmetrics import MeanAbsoluteError, MinMetric
 
-from src.models.components.controller import Controller, TransformerController
-from src.models.components.filtered_noise import FilteredNoise
-from src.models.components.harmonic_oscillator import HarmonicOscillator
-from src.models.components.reverb import ConvolutionalReverb
-from src.utils.constants import SAMPLE_RATE
-from src.utils.features import Loudness
-from src.utils.multiscale_stft_loss import distance
+from performer.models.components.controller import Controller, TransformerController
+from performer.models.components.filtered_noise import FilteredNoise
+from performer.models.components.harmonic_oscillator import HarmonicOscillator
+from performer.models.components.reverb import ConvolutionalReverb
+from performer.utils.constants import SAMPLE_RATE
+from performer.utils.features import Loudness
+from performer.utils.multiscale_stft_loss import distance
 
 
 def multiline_time_plot(values, name):

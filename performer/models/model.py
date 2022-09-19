@@ -10,7 +10,7 @@ from torch.optim.lr_scheduler import _LRScheduler
 from torchmetrics import MetricCollection
 from typing_extensions import Literal
 
-from src.models.components.resnet import resnet18, resnet50
+from performer.models.components.resnet import resnet18, resnet50
 
 # Types for documentation
 PartialOptimizer = Callable[[Iterable], Optimizer]
