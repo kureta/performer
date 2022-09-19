@@ -1,4 +1,4 @@
 outs:
 - md5: 042d5a26ef93eb0bb7064f0ade847ec8
   size: 864044
-  path: cello_controller-ir.wav
+  path: cello-ir.wav

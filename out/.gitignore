@@ -1,3 +1,4 @@
-/cello_controller-cpu.pt
-/violin_controller.pt
-/cello_controller-ir.wav
+/cello-cpu-controller.pt
+/cello-cpu-harmonics.pt
+/cello-cpu-noise.pt
+/cello-ir.wav
