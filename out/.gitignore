@@ -3,3 +3,7 @@
 /cello-cpu-harmonics.pt
 /cello-cuda-controller.pt
 /cello-cuda-harmonics.pt
+/violin-cuda-controller.pt
+/violin-cuda-harmonics.pt
+/violin-cuda-noise.pt
+/violin-ir.wav

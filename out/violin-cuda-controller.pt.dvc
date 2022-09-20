@@ -1,0 +1,4 @@
+outs:
+- md5: 8bf1bcfc97f920b53936e4ed554d61e7
+  size: 32369755
+  path: violin-cuda-controller.pt
