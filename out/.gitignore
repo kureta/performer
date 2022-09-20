@@ -1,2 +1,5 @@
 /cello-cpu-controller.pt
 /cello-ir.wav
+/cello-cpu-harmonics.pt
+/cello-cuda-controller.pt
+/cello-cuda-harmonics.pt
