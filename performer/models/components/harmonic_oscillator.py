@@ -71,7 +71,7 @@ class HarmonicOscillator(nn.Module):
 
         return signal
 
-    # @torch.jit.export
+    @torch.jit.export
     def forward_live(
         self, f0: torch.Tensor, master_amplitude: torch.Tensor, overtone_amplitudes: torch.Tensor
     ):
