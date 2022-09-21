@@ -1,4 +1,4 @@
 outs:
-- md5: e0b7f455d315588239084fc9ec1cef37
-  size: 100508249
+- md5: 73446e243225f8d25c06720b32169f4e
+  size: 100508185
   path: cello_baseline.ckpt
