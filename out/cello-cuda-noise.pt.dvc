@@ -1,0 +1,4 @@
+outs:
+- md5: 2b718916d2c4873ded27d2e91556525c
+  size: 30410
+  path: cello-cuda-noise.pt
