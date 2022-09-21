@@ -1,0 +1,4 @@
+outs:
+- md5: 33a59f28945fd6afa1d7886d1cca02f8
+  size: 30308
+  path: flute-cuda-noise.pt
