@@ -85,9 +85,9 @@ class DDSP(LightningModule):
         noise = self.noise(noise_ctrl)
         dry = harm + noise
         wet = self.reverb(dry)
-        # out = dry + wet
+        out = dry + wet
 
-        return wet
+        return out
 
     def on_train_start(self):
         self.val_acc_best.reset()
