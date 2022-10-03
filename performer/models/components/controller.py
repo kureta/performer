@@ -225,7 +225,7 @@ class Controller(nn.Module):
         return harm_controls, noise_controls
 
     # DO NOT ENABLE DURING TRAINING
-    @torch.jit.export
+    # @torch.jit.export
     def forward_live(
         self, f0: Tensor, loudness: Tensor, hidden: Tensor
     ) -> Tuple[Tuple[Tensor, Tensor, Tensor], Tensor, Tensor]:

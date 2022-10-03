@@ -83,7 +83,9 @@ class DDSP(LightningModule):
         harm_ctrl, noise_ctrl = self.controller(pitch, loudness)
         harm = self.harmonics(*harm_ctrl)
         noise = self.noise(noise_ctrl)
-        out = self.reverb(harm + noise)
+        dry = harm + noise
+        wet = self.reverb(dry)
+        out = dry + wet
 
         return out
 

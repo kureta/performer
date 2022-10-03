@@ -20,19 +20,17 @@ class ConvolutionalReverb(nn.Module):
         self.ir = nn.Parameter(self.init_ir())
 
     def init_ir(self):
-        length = self.duration * SAMPLE_RATE - 1
+        length = self.duration * SAMPLE_RATE
         ir = torch.randn(self.out_ch, self.in_ch, length)
         envelop = torch.exp(-4.0 * torch.linspace(0.0, self.duration, steps=length))
         ir *= envelop
         ir = ir / torch.norm(ir, p=2, dim=-1, keepdim=True)
-        ir = ir.flip(-1)
 
         # we can train a mono synth and controller, add stereo width using reverb
         # [output dimension, input_dimension, time]
         return ir
 
     def forward(self, x: torch.Tensor):
-        ir = torch.concat([torch.ones(*self.ir.shape[:-1], 1, device=x.device), self.ir], dim=-1)
-        out, _ = fft_conv1d_new(x, ir)
+        out, _ = fft_conv1d_new(x, torch.tanh(self.ir))
 
         return out
