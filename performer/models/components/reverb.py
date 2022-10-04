@@ -31,6 +31,8 @@ class ConvolutionalReverb(nn.Module):
         return ir
 
     def forward(self, x: torch.Tensor):
-        out, _ = fft_conv1d_new(x, torch.tanh(self.ir))
+        mask = torch.ones_like(self.ir, device=self.ir.device)
+        mask[..., 0] = 0.0
+        out, _ = fft_conv1d_new(x, torch.tanh(self.ir) * mask)
 
         return out

@@ -112,7 +112,9 @@ class DDSP(LightningModule):
             harm_ctrl, noise_ctrl = self.controller(f0, amp)
             harm = self.harmonics(*harm_ctrl)
             noise = self.noise(noise_ctrl)
-            y = self.reverb(harm + noise)
+            dry = harm + noise
+            wet = self.reverb(dry)
+            y = dry + wet
             loss = distance(x, y)
 
         acc = self.val_acc(self.ld.get_amp(x), self.ld.get_amp(y))
@@ -124,7 +126,7 @@ class DDSP(LightningModule):
 
         if batch_nb == 0:
             # Save impulse-response as audio, once per epoch
-            ir = np.flip(self.reverb.ir[:, 0].cpu().numpy().T, axis=-1)
+            ir = np.flip(torch.tanh(self.reverb.ir[:, 0]).cpu().numpy().T, axis=-1)
             ir = wandb.Audio(ir, sample_rate=SAMPLE_RATE)
             audios = []
             amps = []
@@ -178,7 +180,9 @@ class DDSP(LightningModule):
             harm_ctrl, noise_ctrl = self.controller(f0, amp)
             harm = self.harmonics(*harm_ctrl)
             noise = self.noise(noise_ctrl)
-            y = self.reverb(harm + noise)
+            dry = harm + noise
+            wet = self.reverb(dry)
+            y = dry + wet
             loss = distance(x, y)
 
         acc = self.test_acc(self.ld.get_amp(x), self.ld.get_amp(y))
