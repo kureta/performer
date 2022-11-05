@@ -1,3 +1,6 @@
 /cello_baseline.ckpt
 /violin_baseline.ckpt
 /flute_baseline.ckpt
+/cello_longrun.ckpt
+/flute_longrun.ckpt
+/violin_longrun.ckpt

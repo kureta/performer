@@ -1,0 +1,4 @@
+outs:
+- md5: 8b5d12e80be870cdd91552b7542e6d82
+  size: 100508377
+  path: cello_longrun.ckpt

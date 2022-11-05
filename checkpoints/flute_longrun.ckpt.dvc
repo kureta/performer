@@ -1,0 +1,4 @@
+outs:
+- md5: f7cc410065403791ac52f558837d566a
+  size: 100508441
+  path: flute_longrun.ckpt
