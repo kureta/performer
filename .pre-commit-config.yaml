@@ -86,5 +86,5 @@ repos:
     hooks:
       - id: codespell
         args:
-          - --skip=logs/**,data/**
-          - --ignore-words-list=hist
+          - --skip=logs/**,data/**,*.ipynb
+          # - --ignore-words-list=hist
