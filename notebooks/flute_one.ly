@@ -6,8 +6,12 @@
 \score {
   <<
     \new Staff \with {instrumentName = "Flute I" } {\mixed \intro_flute_one}
-    \new Staff \with {instrumentName = "Flute II" } {\mixed \intro_flute_two}
   >>
-  \layout{}
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/3)
+    }
+  }
   \midi{}
 }

@@ -5,7 +5,6 @@
 
 \score {
   <<
-    \new Staff \with {instrumentName = "Flute I" } {\mixed \intro_flute_one}
     \new Staff \with {instrumentName = "Flute II" } {\mixed \intro_flute_two}
   >>
   \layout{}
