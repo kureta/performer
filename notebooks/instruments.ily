@@ -4,18 +4,6 @@
 
 \language "english"
 
-\header {
-  title = "Gradient Descent"
-  subtitle = "Study for an Ensemble of Fictional Flutes"
-  composer = "Sahin Kureta"
-  tagline = #f
-}
-
-\paper {
-  paper-width = 240
-  paper-height = 135
-}
-
 global = {
   \numericTimeSignature
 }
