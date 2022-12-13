@@ -27,9 +27,10 @@ import numpy as np
 # TODO: humanize (add noise)
 
 ATTACK = 0.1
-DECAY = 0.1
+DECAY = 0.4
 RELEASE = 0.04
-SUSTAIN_AMP = 0.90
+TAIL = 1.5
+SUSTAIN_AMP = 0.97
 ACCENT = 0.1
 NIENTE = 0.0
 PPP = 0.2
@@ -78,7 +79,7 @@ class ADSR:
         self.sustain += ACCENT
 
     def set_sforzando(self):
-        self.peak += ACCENT
+        # self.peak += ACCENT
         self.sustain -= ACCENT
 
     def set_staccato(self):
@@ -96,11 +97,13 @@ class ADSR:
         t1 = self.start + self.attack
         t2 = t1 + self.decay
         t3 = t2 + sustain_duration
-        t4 = t3 + self.release
 
         a = get_line(t0, self.attack, self.val_start, self.peak)
         d = get_line(t1, self.decay, self.peak, self.sustain)
-        r = get_line(t3, self.release, self.sustain, self.val_end)
+        r = get_line(t3, TAIL, self.sustain, self.val_end)
+
+        def rr(t):
+            return np.maximum(r(t), 0.0)
 
         def envelope(t):
             return np.piecewise(
@@ -110,10 +113,9 @@ class ADSR:
                     (t0 <= t) & (t < t1),
                     (t1 <= t) & (t < t2),
                     (t2 <= t) & (t < t3),
-                    (t3 <= t) & (t < t4),
-                    t4 < t,
+                    t3 <= t,
                 ),
-                (0, a, d, self.sustain, r, 0),
+                (0, a, d, self.sustain, rr),
             )
 
         return envelope
