@@ -89,6 +89,7 @@ class ADSR:
         self.staccato = 4
 
     def get_envelope_func(self):
+        # TODO: allow shorter notes by modifying attack, decay, release times
         if self.duration < self.attack + self.decay + self.release:
             raise ValueError("Note too short!")
 
@@ -125,3 +126,22 @@ class ADSR:
 
     def __ge__(self, other):
         return self.start >= other.start
+
+
+# TODO: next ADSR should start from last amplitude value, not 0.
+class ADSRList:
+    def __init__(self):
+        self.notes = []
+
+    def get_envelope_func(self):
+        def envelope(t):
+            return np.piecewise(
+                t,
+                [
+                    (self.notes[idx].start <= t) & (t < self.notes[idx + 1].start)
+                    for idx in range(len(self.notes) - 1)
+                ],
+                [ads.get_envelope_func() for ads in self.notes],
+            )
+
+        return envelope
