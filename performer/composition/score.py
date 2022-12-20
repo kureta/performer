@@ -175,6 +175,7 @@ class NoteList:
     def __init__(self):
         self.notes = []
         self.cresc = []
+        self.gliss = []
 
     def append(self, note):
         self.notes.append(note)
@@ -214,6 +215,10 @@ class NoteList:
                 t >= self.notes[-1].t0,
             ],
             [note.f0 for note in self.notes],
+        ) * np.piecewise(
+            t,
+            [(a[0] <= t) & (t < b[0]) for a, b in self.gliss],
+            [*[get_line(a[0], b[0], a[1], b[1]) for a, b in self.gliss], 1.0],
         )
 
 
@@ -258,6 +263,9 @@ def parser(path: str):
         current_dynamic = 0.6
         is_in_cresc = False
         cresc_start = None
+        is_in_gliss = False
+        gliss_start = None
+        last_pitch = None
 
         for row in csv.reader(csvfile, delimiter="\t"):
             if current_tempo is not None:
@@ -271,6 +279,10 @@ def parser(path: str):
                     current_tempo = float(tempo)
                 case [_, "note", pitch, _, duration, *_]:
                     pitch = float(pitch)
+                    if is_in_gliss:
+                        notes.gliss.append((gliss_start, (time, pitch / last_pitch)))
+                        is_in_gliss = False
+                    last_pitch = pitch
                     duration = float(duration)
                     f0 = midi_to_hz(pitch)
                     duration = moment_to_sec(duration, current_tempo)
@@ -303,6 +315,9 @@ def parser(path: str):
                 case [_, "cresc" | "decresc", value]:
                     cresc_start = (time, 1.0)
                     is_in_cresc = True
+                case [_, "gliss"]:
+                    gliss_start = (time, 1.0)
+                    is_in_gliss = True
                 case _:
                     print(f'<NA>\ttime: {time:.2f} kind: {row[1]} values: {" - ".join(row[2:])}')
 

@@ -3,8 +3,9 @@
 0.00000000	script	accent
 0.00000000	dynamic	f
 0.00000000	decresc	-1
+0.00000000	gliss
 0.00000000	slur	-1
-0.08333333	note	71	8*2/3	0.08333333	point-and-click 40 15
+0.08333333	note	71	8*2/3	0.08333333	point-and-click 51 15
 0.08333333	script	staccato
 0.08333333	slur	1
 0.16666667	rest	8*2/3	0.08333333

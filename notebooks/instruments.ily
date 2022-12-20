@@ -12,7 +12,7 @@ intro_flute_one = {
   \global
   \time 5/4 \tempo 4 = 90 \tonic e
   \clef treble
-  \tuplet 3/2 { \tune 2 e'8-> \f\>  ( [ \tune 3 b'-. ) r ] } r1 |
+  \tuplet 3/2 { \tune 2 e'8-> \f\> \glissando  ( [ \tune 3 b'-. ) r ] } r1 |
   \tuplet 3/2 { \tune 5 g''8-> ( [ \tune 19 g''-. ) r ] } r1 |
   \tuplet 3/2 { \tune 5 g''8-> ( [ \tune 11 a''-. ) r ] } r1 |
   \tuplet 3/2 { \tune 13 c'''8-> \p ( [ \tune 5 g''-. ) r ] } r1 |
