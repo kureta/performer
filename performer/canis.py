@@ -28,9 +28,9 @@ import numpy as np
 
 ATTACK = 0.1
 DECAY = 0.4
-RELEASE = 0.04
-TAIL = 1.5
-SUSTAIN_AMP = 0.97
+RELEASE = 0.07
+TAIL = 3.0
+SUSTAIN_AMP = 0.99
 ACCENT = 0.1
 NIENTE = 0.0
 PPP = 0.2
@@ -43,6 +43,20 @@ def get_line(start, duration, val0, val1):
 
     def line(t):
         return slope * (t - start) + val0
+
+    return line
+
+
+def attack_line(onset, val0, t_attack=ATTACK):
+    def line(t):
+        return (t - onset) / t_attack + val0
+
+    return line
+
+
+def release_line(onset, val0, t_release=TAIL):
+    def line(t):
+        return -(t - onset) / t_release + val0
 
     return line
 
