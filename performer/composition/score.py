@@ -1,3 +1,5 @@
+import csv
+
 import numpy as np
 
 
@@ -128,6 +130,7 @@ class Note:
         self.dynamic = dynamic
         self.f0 = f0
         self.envelope = Envelope(t0, duration, 0.0, dynamic)
+        self.is_accented = False
 
     def set_initial_loudness(self, val):
         self.envelope.v0 = val
@@ -152,7 +155,8 @@ class Note:
         self.envelope.gap_percent_duration = 0.75
 
     def set_accent(self):
-        self.envelope.v1 += 0.2
+        self.envelope.v1 = self.envelope._v1 + 0.1
+        self.is_accented = True
 
 
 class NoteList:
@@ -161,40 +165,127 @@ class NoteList:
 
     def append(self, note):
         self.notes.append(note)
+        self.link_notes()
 
-    def render(self):
+    def link_notes(self):
         for note, next_note in zip(self.notes[:-1], self.notes[1:]):
             last_amp = note.envelope(next_note.t0)
             next_note.set_initial_loudness(last_amp)
 
-        def curve(t):
-            return np.piecewise(
-                t,
-                [
-                    t < self.notes[0].t0,
-                    *[
-                        (note.t0 <= t) & (t < next_note.t0)
-                        for note, next_note in zip(self.notes[:-1], self.notes[1:])
-                    ],
-                    t > self.notes[-1].t0,
+    def curve(self, t):
+        return np.piecewise(
+            t,
+            [
+                t < self.notes[0].t0,
+                *[
+                    (note.t0 <= t) & (t < next_note.t0)
+                    for note, next_note in zip(self.notes[:-1], self.notes[1:])
                 ],
-                [0.0, *[note.envelope for note in self.notes[:-1]], self.notes[-1].envelope],
-            )
+                t > self.notes[-1].t0,
+            ],
+            [0.0, *[note.envelope for note in self.notes[:-1]], self.notes[-1].envelope],
+        )
 
-        def freq(t):
-            print(len([note.f0 for note in self.notes]))
-            return np.piecewise(
-                t,
-                [
-                    *[
-                        (note.t0 <= t) & (t < next_note.t0)
-                        for note, next_note in zip(self.notes[:-1], self.notes[1:])
-                    ],
-                    t >= self.notes[-1].t0,
+    def freq(self, t):
+        return np.piecewise(
+            t,
+            [
+                *[
+                    (note.t0 <= t) & (t < next_note.t0)
+                    for note, next_note in zip(self.notes[:-1], self.notes[1:])
                 ],
-                [note.f0 for note in self.notes],
-            )
+                t >= self.notes[-1].t0,
+            ],
+            [note.f0 for note in self.notes],
+        )
 
-        end = self.notes[-1].t0 + self.notes[-1].duration + 6.0
-        t = np.linspace(0, end, int(end * 250))
-        return t, curve(t), freq(t)
+
+def whole_note_sec(tempo):
+    return 60 * 16 / tempo
+
+
+def moment_to_sec(moment, tempo):
+    return whole_note_sec(tempo) * moment
+
+
+def midi_to_hz(midi: float) -> float:
+    return 440.0 * np.power(2, ((midi - 69) / 12))
+
+
+def hz_to_midi(hz: float) -> float:
+    return 12 * np.log2(hz / 440) + 69
+
+
+def parse_note(row):
+    return float(row[0]), float(row[2]), float(row[4])
+
+
+dynamics_map = {
+    "ppp": 0.2,
+    "pp": 0.3,
+    "p": 0.4,
+    "mp": 0.5,
+    "mf": 0.6,
+    "f": 0.7,
+    "ff": 0.8,
+    "fff": 0.9,
+}
+
+
+def parser(path: str):
+    notes = NoteList()
+    with open(path) as csvfile:
+        current_tempo = None
+        current_note = None
+        is_in_slur = False
+        current_dynamic = 0.6
+
+        for row in csv.reader(csvfile, delimiter="\t"):
+            if current_tempo is not None:
+                time = moment_to_sec(float(row[0]), current_tempo)
+                if (current_note is not None) and (time > current_note.t0):
+                    notes.append(current_note)
+                    current_note = None
+
+            match row[1]:
+                case "tempo":
+                    current_tempo = float(row[2])
+                case "note":
+                    t0, pitch, duration = parse_note(row)
+                    t0 = moment_to_sec(t0, current_tempo)
+                    f0 = midi_to_hz(pitch)
+                    duration = moment_to_sec(duration, current_tempo)
+                    current_note = Note(t0, duration, current_dynamic, f0)
+                    if is_in_slur:
+                        current_note.set_slur_mid()
+                case "rest":
+                    continue
+                case "slur":
+                    if int(row[2]) == -1:
+                        current_note.set_slur_start()
+                    else:
+                        current_note.set_slur_end()
+                case "script":
+                    match row[2]:
+                        case "staccato":
+                            current_note.set_staccato()
+                        case "staccatissimo":
+                            current_note.set_staccatissimo()
+                        case "accent":
+                            current_note.set_accent()
+                        case _:
+                            print(
+                                f'<NA>\ttime: {time:.2f} kind: {row[1]} values: {" - ".join(row[2:])}'
+                            )
+                case "dynamic":
+                    current_dynamic = dynamics_map[row[2]]
+
+                    if current_note.is_accented:
+                        current_note.envelope.v1 = current_dynamic + 0.1
+                    else:
+                        current_note.envelope.v1 = current_dynamic
+
+                case _:
+                    print(f'<NA>\ttime: {time:.2f} kind: {row[1]} values: {" - ".join(row[2:])}')
+
+    return notes
