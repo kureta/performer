@@ -17,9 +17,9 @@ intro_flute_one = {
   \tuplet 3/2 { \tune 5 g''8-> ( [ \tune 11 a''-. ) r ] } r1 |
   \tuplet 3/2 { \tune 13 c'''8-> \p ( [ \tune 5 g''-. ) r ] } r1 |
   \tuplet 3/2 { \tune 19 g''8-> ( [ \tune 13 c'''-. ) r ] } r1 |
+  \tuplet 3/2 { \tune 19 g''8->\< ( [ \tune 17 f''-. ) r ] } r1 |
   \tuplet 3/2 { \tune 19 g''8-> ( [ \tune 17 f''-. ) r ] } r1 |
-  \tuplet 3/2 { \tune 19 g''8-> ( [ \tune 17 f''-. ) r ] } r1 |
-  \tuplet 3/2 { \tune 5 g''8-> ( [ \tune 13 c'''8-. ) r ] } r1 |
+  \tuplet 3/2 { \tune 5 g''8->\f ( [ \tune 13 c'''8-. ) r ] } r1 |
 }
 
 intro_flute_two = {

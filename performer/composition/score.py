@@ -159,9 +159,22 @@ class Note:
         self.is_accented = True
 
 
+def get_line(start, end, val0, val1):
+    duration = end - start
+    if duration == 0.0:
+        return lambda t: val1
+    slope = (val1 - val0) / duration
+
+    def line(t):
+        return slope * (t - start) + val0
+
+    return line
+
+
 class NoteList:
     def __init__(self):
         self.notes = []
+        self.cresc = []
 
     def append(self, note):
         self.notes.append(note)
@@ -184,6 +197,10 @@ class NoteList:
                 t > self.notes[-1].t0,
             ],
             [0.0, *[note.envelope for note in self.notes[:-1]], self.notes[-1].envelope],
+        ) * np.piecewise(
+            t,
+            [(a[0] <= t) & (t < b[0]) for a, b in self.cresc],
+            [*[get_line(a[0], b[0], a[1], b[1]) for a, b in self.cresc], 1.0],
         )
 
     def freq(self, t):
@@ -239,6 +256,8 @@ def parser(path: str):
         current_note = None
         is_in_slur = False
         current_dynamic = 0.6
+        is_in_cresc = False
+        cresc_start = None
 
         for row in csv.reader(csvfile, delimiter="\t"):
             if current_tempo is not None:
@@ -247,44 +266,43 @@ def parser(path: str):
                     notes.append(current_note)
                     current_note = None
 
-            match row[1]:
-                case "tempo":
-                    current_tempo = float(row[2])
-                case "note":
-                    t0, pitch, duration = parse_note(row)
-                    t0 = moment_to_sec(t0, current_tempo)
+            match row:
+                case [_, "tempo", tempo]:
+                    current_tempo = float(tempo)
+                case [_, "note", pitch, _, duration, *_]:
+                    pitch = float(pitch)
+                    duration = float(duration)
                     f0 = midi_to_hz(pitch)
                     duration = moment_to_sec(duration, current_tempo)
-                    current_note = Note(t0, duration, current_dynamic, f0)
+                    current_note = Note(time, duration, current_dynamic, f0)
                     if is_in_slur:
                         current_note.set_slur_mid()
-                case "rest":
+                case [_, "rest", *_]:
                     continue
-                case "slur":
-                    if int(row[2]) == -1:
+                case [_, "slur", value]:
+                    if int(value) == -1:
                         current_note.set_slur_start()
                     else:
                         current_note.set_slur_end()
-                case "script":
-                    match row[2]:
-                        case "staccato":
-                            current_note.set_staccato()
-                        case "staccatissimo":
-                            current_note.set_staccatissimo()
-                        case "accent":
-                            current_note.set_accent()
-                        case _:
-                            print(
-                                f'<NA>\ttime: {time:.2f} kind: {row[1]} values: {" - ".join(row[2:])}'
-                            )
-                case "dynamic":
-                    current_dynamic = dynamics_map[row[2]]
-
+                case [_, "script", "accent"]:
+                    current_note.set_accent()
+                case [_, "script", "staccato"]:
+                    current_note.set_staccato()
+                case [_, "script", "staccatissimo"]:
+                    current_note.set_staccatissimo()
+                case [_, "dynamic", value]:
+                    dynamic = dynamics_map[value]
+                    if is_in_cresc:
+                        notes.cresc.append((cresc_start, (time, dynamic / current_dynamic)))
+                        is_in_cresc = False
+                    current_dynamic = dynamic
                     if current_note.is_accented:
                         current_note.envelope.v1 = current_dynamic + 0.1
                     else:
                         current_note.envelope.v1 = current_dynamic
-
+                case [_, "cresc" | "decresc", value]:
+                    cresc_start = (time, 1.0)
+                    is_in_cresc = True
                 case _:
                     print(f'<NA>\ttime: {time:.2f} kind: {row[1]} values: {" - ".join(row[2:])}')
 
