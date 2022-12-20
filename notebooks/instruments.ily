@@ -1,6 +1,6 @@
 \version "2.22.2"
 
-\include "microlily/he.ly"
+\include "./microlily/he.ly"
 
 \language "english"
 

@@ -1,0 +1,63 @@
+These are files to enhance the microtonal support in LilyPond,
+including Sagittal and Extended Helmholtz-Ellis notations.
+It probably came from http://x31eq.com/lilypond/ or
+https://bitbucket.org/x31eq/microlily
+
+The Sagittal font and musical examples were provided by
+Dave Keenan and George Secor.
+There's some kind of license on them.
+The code to implement the example is mine.
+
+The HE font for Extended Helmholtz-Ellis Pitch Notation
+is shareware and can be download from www.plainsound.org.
+Install it as a system font.
+
+Everything else you can do what you like with.
+
+regular.ly -- Standard file for JI retuning, used by the Athenian and
+Promethean implementations.
+
+addmts.py, addmts.py3 -- Retune output MIDI files to use the
+MIDI Tuning Standard
+
+Sagittal2.0d10.otf -- the Sagittal font.  Check for the latest at
+http://sagittal.org
+
+sagittal.ly -- support code for the Sagittal glyphs.
+
+athenian.ly -- support for just intonation with Athenian EDA accidentals.
+
+promethean.ly -- more precise accidentals than Athenian
+
+ji12.ly -- just intonation written as 12 note equal temperament.
+    (This makes sense when used with cents.)
+
+sagji.ly -- common code for Sagittal with just intonation
+
+trojan72.ly -- just intonation rounded off to 72-EDO
+
+sag72.ly -- ratios mapped to 72-equal
+
+sagji72.ly -- just intonation with accidentals for 72-equal
+
+trojan60.ly sag60.ly sagji60.ly -- Same things with 60 divisions
+
+sagji224.ly -- Athenian accidentals but consistently applied
+               according to 224-equal.
+
+trojan.ly -- common code for Trojan notations of JI
+
+he.ly -- Extended Helmholtz-Ellis JI Pitch Notation support
+
+scheme-et.ly scheme-music.ly -- helper code for JI input
+
+ratios.ly -- example of JI duplicating the Sagittal paper.  Output in
+ratios.pdf and ratios.midi
+
+harmonics.ly -- the harmonic series in Extended Helmholtz-Ellis
+                Pitch Notation.
+
+subharmonics.ly -- another Extended Helmholtz-Ellis Pitch Notation
+                   example matching one of the defining papers.
+
+fig6.ly -- another Sagittal example

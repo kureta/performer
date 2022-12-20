@@ -7,6 +7,6 @@
   <<
     \new Staff \with {instrumentName = "Flute II" } {\mixed \intro_flute_two}
   >>
-  \layout{}
+  \layout {}
   \midi{}
 }
