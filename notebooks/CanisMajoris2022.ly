@@ -40,26 +40,35 @@
         \time 5/4
         \clef treble
         \intro_flute_one
+        \intro_flute_one
+	\time 4/4
+	\tune 7 d'2.. ( \pp\< \tune 7 d'8 \f )
       }
       \new Staff \with {instrumentName = "Flute II" } {
         \tempo 4 = 90
         \time 5/4
         \clef treble
         \intro_flute_two
+        \intro_flute_two
+	\time 4/4
+	\tune 5 g2.. ( \pp\< \tune 5 g 8 \f )
       }
       \new Staff \with {instrumentName = "Flute III" } {
         \tempo 4 = 90
         \time 4/4
-        \repeat unfold 5 \canon_one
-	\tune 3 b'8 \tune 2 e'8 \p
+        \repeat unfold 10 s1
+	\time 4/4
+	\repeat unfold 5 \canon_one
+	\tune 2 e'2.. ( \pp\< \tune 2 e'8 \f )
       }
       \new Staff \with {instrumentName = "Flute IV" } {
         \tempo 4 = 90
         \time 4/4
-        \repeat unfold 5 \canon_two
-	\tune 12 b'4 \p
+        \repeat unfold 10 s1
+	\time 4/4
+	\repeat unfold 5 \canon_two
+	\tune 11 a''2.. ( \pp\< \tune 11 a''8 \f )
       }
-
     >>
   }
 }

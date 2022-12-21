@@ -121,7 +121,7 @@ class Envelope:
 
         return np.piecewise(
             t,
-            (t < t0, (t0 < t) & (t < t1), (t1 < t) & (t < t2), t2 < t),
+            (t < t0, (t0 <= t) & (t < t1), (t1 <= t) & (t < t2), t2 <= t),
             (self.v0, self._attack, self._sustain, self._release),
         )
 
@@ -222,7 +222,7 @@ class NoteList:
                     (note.t0 <= t) & (t < next_note.t0)
                     for note, next_note in zip(self.notes[:-1], self.notes[1:])
                 ],
-                t > self.notes[-1].t0,
+                t >= self.notes[-1].t0,
             ],
             [0.0, *[note.envelope for note in self.notes[:-1]], self.notes[-1].envelope],
         ) + self.dynamic_curve()(t)
@@ -355,5 +355,14 @@ def parser(path: str):
                     is_in_gliss = True
                 case _:
                     print(f'<NA>\ttime: {time:.2f} kind: {row[1]} values: {" - ".join(row[2:])}')
+
+    if current_note is not None:
+        if current_note.is_accented:
+            current_note.dynamic = current_dynamic + 0.1
+        else:
+            current_note.dynamic = current_dynamic
+        if is_in_slur:
+            current_note.set_slur_mid()
+        notes.append(current_note)
 
     return notes
