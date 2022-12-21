@@ -1,4 +1,6 @@
-\version "2.22.2"
+\version "2.24"
+
+#(ly:set-option 'relative-includes #t)
 
 \include "./event-listener.ly"
 \include "./instruments.ily"
@@ -11,19 +13,53 @@
 }
 
 \paper {
-  paper-width = 240
-  paper-height = 135
+  paper-width = 400
+  paper-height = 225
 }
 
 \score {
-   \layout{
-      \context {
-        \Score
-        proportionalNotationDuration = #(ly:make-moment 1/2)
+  \layout{
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/8)
+      \enablePolymeter
+    }
+    \context {
+      \Staff
+      \remove "Instrument_name_engraver"
+      \RemoveEmptyStaves
+      \override VerticalAxisGroup.remove-first = ##t
+      \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 17))
+      \numericTimeSignature
     }
   }
-  <<
-    \new Staff \with {instrumentName = "Flute I" } {\mixed \intro_flute_one}
-    \new Staff \with {instrumentName = "Flute II" } {\mixed \intro_flute_two}
-  >>
+  \new StaffGroup {
+    <<
+      \new Staff \with {instrumentName = "Flute I" } {
+        \tempo 4 = 90
+        \time 5/4
+        \clef treble
+        \intro_flute_one
+      }
+      \new Staff \with {instrumentName = "Flute II" } {
+        \tempo 4 = 90
+        \time 5/4
+        \clef treble
+        \intro_flute_two
+      }
+      \new Staff \with {instrumentName = "Flute III" } {
+        \tempo 4 = 90
+        \time 4/4
+        \repeat unfold 5 \canon_one
+	\tune 3 b'8 \tune 2 e'8 \p
+      }
+      \new Staff \with {instrumentName = "Flute IV" } {
+        \tempo 4 = 90
+        \time 4/4
+        \repeat unfold 5 \canon_two
+	\tune 12 b'4 \p
+      }
+
+    >>
+  }
 }

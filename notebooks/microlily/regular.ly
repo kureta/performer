@@ -76,18 +76,18 @@ dorian = #(scale-scale dorian tuning)
 % Set the innards
 newglyphs = #(begin
     (retune-nominals tuning)
-    (ly:parser-set-note-names parser (retuned-pitchnames pitchnames tuning))
+    (ly:parser-set-note-names (retuned-pitchnames pitchnames tuning))
     (retune-glyphs standard-alteration-glyph-name-alist tuning))
 
 % Apply the new glyphs.
 \layout {
   \context {
     \Score
-    \override Accidental #'glyph-name-alist = \newglyphs
-    \override KeySignature #'glyph-name-alist = \newglyphs
-    \override AccidentalCautionary #'glyph-name-alist = \newglyphs
-    \override TrillPitchAccidental #'glyph-name-alist = \newglyphs
-    \override AmbitusAccidental #'glyph-name-alist = \newglyphs
+    \override Accidental.#'alteration-glyph-name-alist = \newglyphs
+    \override KeySignature.#'alteration-glyph-name-alist = \newglyphs
+    \override AccidentalCautionary.#'alteration-glyph-name-alist = \newglyphs
+    \override TrillPitchAccidental.#'alteration-glyph-name-alist = \newglyphs
+    \override AmbitusAccidental.#'alteration-glyph-name-alist = \newglyphs
   }
 }
 

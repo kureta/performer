@@ -124,21 +124,21 @@ tunedNominals = #(pythag-nominals tunegrid)
 
 
 mixed = {
-    \override Staff.Accidental #'stencil = #ly:text-interface::print
-    \override Staff.Accidental #'text = #(lambda (grob)
+    \override Staff.Accidental.#'stencil = #ly:text-interface::print
+    \override Staff.Accidental.#'text = #(lambda (grob)
         (string-for-alteration
             (ly:grob-property grob 'alteration)))
-    \override Staff.Accidental #'font-name = #"HE"
-    \override Staff.Accidental #'font-size = #-1
+    \override Staff.Accidental.#'font-name = #"HE"
+    \override Staff.Accidental.#'font-size = #-1
     % c.f. lilypond-user 2014-03-06 or
     % http://code.google.com/p/lilypond/issues/detail?id=2811
-    \override Staff.Accidental #'horizontal-skylines = #'()
-    \override Staff.Accidental #'X-extent = #(lambda (grob)
+    \override Staff.Accidental.#'horizontal-skylines = #'()
+    \override Staff.Accidental.#'X-extent = #(lambda (grob)
         (let ((acc-str (string-for-alteration
                         (ly:grob-property grob 'alteration))))
                 (cons (* -0.3 (string-length acc-str))
                       (* 1.4 (string-length acc-str)))))
-    \override Staff.Accidental #'Y-extent = #'(-1.0 . 1.0)
+    \override Staff.Accidental.#'Y-extent = #'(-1.0 . 1.0)
 }
 
 pure = \mixed
