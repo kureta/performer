@@ -8,7 +8,7 @@
 \header {
   title = "Title?"
   subtitle = "Study for an Ensemble of Fictional Flutes"
-  composer = "Sahin Kureta"
+  composer = "Şahin Kureta"
   tagline = #f
 }
 
@@ -40,34 +40,49 @@
         \time 5/4
         \clef treble
         \intro_flute_one
-        \intro_flute_one
-	\time 4/4
-	\tune 7 d'2.. ( \pp\< \tune 7 d'8 \f )
+	\break
+	\intro_flute_one
       }
       \new Staff \with {instrumentName = "Flute II" } {
         \tempo 4 = 90
         \time 5/4
         \clef treble
         \intro_flute_two
+	\break
         \intro_flute_two
-	\time 4/4
-	\tune 5 g2.. ( \pp\< \tune 5 g 8 \f )
-      }
-      \new Staff \with {instrumentName = "Flute III" } {
-        \tempo 4 = 90
-        \time 4/4
-        \repeat unfold 10 s1
-	\time 4/4
-	\repeat unfold 5 \canon_one
-	\tune 2 e'2.. ( \pp\< \tune 2 e'8 \f )
       }
       \new Staff \with {instrumentName = "Flute IV" } {
         \tempo 4 = 90
-        \time 4/4
-        \repeat unfold 10 s1
-	\time 4/4
-	\repeat unfold 5 \canon_two
-	\tune 11 a''2.. ( \pp\< \tune 11 a''8 \f )
+        \time 5/4
+        \clef treble
+	\repeat unfold 10 s1
+	\break
+	\flute_three_b
+	\three_b_fast
+	\break
+	\flute_three_b_accent
+	\three_b_slow
+      }
+      \new Staff \with {instrumentName = "Flute V" } {
+        \tempo 4 = 90
+        \time 5/4
+        \clef treble
+	\repeat unfold 10 s1
+	\break
+	\flute_four_b
+	\four_b_fast
+	\break
+	\flute_four_b_accent
+	\four_b_slow
+      }
+      \new Staff \with {instrumentName = "Flute III" } {
+        \tempo 4 = 90
+        \time 5/4
+        \clef bass
+	\repeat unfold 2\intro_flute_three_drone
+	\break
+	\intro_flute_three_drone
+	\intro_flute_three_drone_b
       }
     >>
   }
