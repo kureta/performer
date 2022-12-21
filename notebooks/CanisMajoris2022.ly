@@ -40,26 +40,22 @@
         \time 5/4
         \clef treble
         \intro_flute_one
-	\break
-	\intro_flute_one
+	\intro_flute_one_b
       }
       \new Staff \with {instrumentName = "Flute II" } {
         \tempo 4 = 90
         \time 5/4
         \clef treble
         \intro_flute_two
-	\break
-        \intro_flute_two
+        \intro_flute_two_b
       }
       \new Staff \with {instrumentName = "Flute IV" } {
         \tempo 4 = 90
         \time 5/4
         \clef treble
 	\repeat unfold 10 s1
-	\break
 	\flute_three_b
 	\three_b_fast
-	\break
 	\flute_three_b_accent
 	\three_b_slow
       }
@@ -68,10 +64,8 @@
         \time 5/4
         \clef treble
 	\repeat unfold 10 s1
-	\break
 	\flute_four_b
 	\four_b_fast
-	\break
 	\flute_four_b_accent
 	\four_b_slow
       }
@@ -80,7 +74,6 @@
         \time 5/4
         \clef bass
 	\repeat unfold 2\intro_flute_three_drone
-	\break
 	\intro_flute_three_drone
 	\time 4/4
 	\intro_flute_three_drone_b
