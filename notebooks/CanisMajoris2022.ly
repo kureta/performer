@@ -82,6 +82,7 @@
 	\repeat unfold 2\intro_flute_three_drone
 	\break
 	\intro_flute_three_drone
+	\time 4/4
 	\intro_flute_three_drone_b
       }
     >>

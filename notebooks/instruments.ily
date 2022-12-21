@@ -85,6 +85,37 @@ flute_three_b = {
   \tune 5 d''16-> ( [ \mf \tune 9 d''' ] ) |
 }
 
+flute_three_b_accent = {
+  \global
+  \mixed
+  \tonic d
+  \tune 2 d''16-> ( \f \> \tune 7 d'' \tune 11 d'' \tune 5 d''->
+  \tune 2 d''16 \tune 7 d'' \tune 11 d''-> \tune 5 d''
+  \tune 2 d''16 \tune 7 d''-> \tune 11 d'' \tune 5 d'' )
+  \tune 9 d'-> ( [ \tune 2 d''16  \tune 7 d'' \tune 11 d''-> \tune 5 d'' ) ] \p
+  \tune 9 d' ( [ \mf
+  \tonic f
+  \tune 2 d'16->  \tune 7 d'' ) ] |
+
+  \tune 2 d''16 ( [ \f \> \tune 7 d'-> \tune 11 d'' ) ]
+  \tune 2 d''16 ( [ \tune 7 d'-> \tune 11 d'') ]
+  \tune 2 d''16 ( [ \tune 7 d'-> \tune 11 d'') ]
+  \tune 2 d''16 ( [ \tune 7 d'-> \tune 11 d'' \tune 5 d''' ) ]
+  \tune 2 d''16-> ( [ \tune 7 d' \tune 11 d'' \tune 5 d'''-> ) ] \p
+  \tonic g
+  \tune 2 d'16 ( [ \mf \tune 7 d'' \tune 11 d'''-> ) ] |
+
+  \tune 2 d''16 ( [ \f \> \tune 7 d' ) ]
+  \tune 2 d''16-> ( [ \tune 7 d' ) ]
+  \tune 2 d''16 ( [ \tune 7 d'-> ) ]
+  \tune 2 d''16 ( [ \tune 7 d' ) ]
+  \tune 2 d''16-> ( [ \tune 7 d' \tune 11 d'' ) ]
+  \tune 2 d''16-> ( [ \tune 7 d' \tune 11 d'' ) ]
+  \tune 2 d''16-> ( [ \tune 7 d' \tune 11 d'' \tune 5 d''-> ) ] \p
+  \tonic e
+  \tune 5 d''16 ( [ \mf \tune 9 d''' ] ) |
+}
+
 three_b_fast = {
   \global
   \mixed
@@ -138,6 +169,37 @@ flute_four_b = {
   \tune 13 d''16-> ( [ \mf \tune 19 d''' ] ) |
 }
 
+flute_four_b_accent = {
+  \global
+  \mixed
+  \tonic d
+  \tune 17 d'16-> ( \f \> \tune 3 d''' \tune 13 d'' \tune 19 d''
+  \tune 17 d'16 \tune 3 d'''-> \tune 13 d'' \tune 19 d''
+  \tune 17 d'16 \tune 3 d''' \tune 13 d''-> \tune 19 d'' )
+  \tune 11 d'' ( [ \tune 17 d'16  \tune 3 d''' \tune 13 d'-> \tune 19 d'' ) ] \p
+  \tune 11 d' ( [ \mf
+  \tonic f
+  \tune 17 d'16  \tune 3 d'' ) ] |
+
+  \tune 17 d'16-> ( [ \f \> \tune 3 d'' \tune 19 d' ) ]
+  \tune 17 d'16 ( [ \tune 3 d'' \tune 19 d'->) ]
+  \tune 17 d'16 ( [ \tune 3 d'' \tune 19 d') ]
+  \tune 17 d'16 ( [ \tune 3 d''-> \tune 19 d' \tune 13 d'' ) ]
+  \tune 17 d'16 ( [ \tune 3 d'' \tune 19 d'-> \tune 13 d'' ) ] \p
+  \tonic g
+  \tune 17 d'16 ( [ \mf \tune 3 d'' \tune 19 d'' ) ] |
+
+  \tune 17 d''16-> ( [ \f \> \tune 3 d'' ) ]
+  \tune 17 d''16 ( [ \tune 3 d'' ) ]
+  \tune 17 d''16 ( [ \tune 3 d''-> ) ]
+  \tune 17 d''16 ( [ \tune 3 d'' ) ]
+  \tune 17 d''16 ( [ \tune 3 d'' \tune 19 d''-> ) ]
+  \tune 17 d''16 ( [ \tune 3 d'' \tune 19 d'' ) ]
+  \tune 17 d''16 ( [ \tune 3 d''-> \tune 19 d'' \tune 13 d'' ) ] \p
+  \tonic e
+  \tune 13 d''16 ( [ \mf \tune 19 d''' ] ) |
+}
+
 four_b_slow = {
   \global
   \mixed
@@ -160,6 +222,7 @@ four_b_fast = {
   \tune 17 d''16-> \mf \< ( [ \tune 3 d' \tune 13 d'' \tune 19 d'' \tune 11 d'' \tune 17 d''' ) ] \f
 }
 
+% =================== Below is garbage ===================
 flute_one_a = {
   \global
   \tonic d
@@ -278,66 +341,4 @@ harmon = {
   \tune 5 e4 \tune 6 e'4 \tune 7 e'4 \tune 8 e'4
   \clef treble
   \tune 9 f'4 \tune 10 g'4 \tune 11 a'4 \tune 12 b'4
-}
-
-flute_three_b_accent = {
-  \global
-  \mixed
-  \tonic d
-  \tune 2 d''16-> ( \f \> \tune 7 d'' \tune 11 d'' \tune 5 d''->
-  \tune 2 d''16 \tune 7 d'' \tune 11 d''-> \tune 5 d''
-  \tune 2 d''16 \tune 7 d''-> \tune 11 d'' \tune 5 d'' )
-  \tune 9 d'-> ( [ \tune 2 d''16  \tune 7 d'' \tune 11 d''-> \tune 5 d'' ) ] \p
-  \tune 9 d' ( [ \mf
-  \tonic f
-  \tune 2 d'16->  \tune 7 d'' ) ] |
-
-  \tune 2 d''16 ( [ \f \> \tune 7 d'-> \tune 11 d'' ) ]
-  \tune 2 d''16 ( [ \tune 7 d'-> \tune 11 d'') ]
-  \tune 2 d''16 ( [ \tune 7 d'-> \tune 11 d'') ]
-  \tune 2 d''16 ( [ \tune 7 d'-> \tune 11 d'' \tune 5 d''' ) ]
-  \tune 2 d''16-> ( [ \tune 7 d' \tune 11 d'' \tune 5 d'''-> ) ] \p
-  \tonic g
-  \tune 2 d'16 ( [ \mf \tune 7 d'' \tune 11 d'''-> ) ] |
-
-  \tune 2 d''16 ( [ \f \> \tune 7 d' ) ]
-  \tune 2 d''16-> ( [ \tune 7 d' ) ]
-  \tune 2 d''16 ( [ \tune 7 d'-> ) ]
-  \tune 2 d''16 ( [ \tune 7 d' ) ]
-  \tune 2 d''16-> ( [ \tune 7 d' \tune 11 d'' ) ]
-  \tune 2 d''16-> ( [ \tune 7 d' \tune 11 d'' ) ]
-  \tune 2 d''16-> ( [ \tune 7 d' \tune 11 d'' \tune 5 d''-> ) ] \p
-  \tonic e
-  \tune 5 d''16 ( [ \mf \tune 9 d''' ] ) |
-}
-
-flute_four_b_accent = {
-  \global
-  \mixed
-  \tonic d
-  \tune 17 d'16-> ( \f \> \tune 3 d''' \tune 13 d'' \tune 19 d''
-  \tune 17 d'16 \tune 3 d'''-> \tune 13 d'' \tune 19 d''
-  \tune 17 d'16 \tune 3 d''' \tune 13 d''-> \tune 19 d'' )
-  \tune 11 d'' ( [ \tune 17 d'16  \tune 3 d''' \tune 13 d'-> \tune 19 d'' ) ] \p
-  \tune 11 d' ( [ \mf
-  \tonic f
-  \tune 17 d'16  \tune 3 d'' ) ] |
-
-  \tune 17 d'16-> ( [ \f \> \tune 3 d'' \tune 19 d' ) ]
-  \tune 17 d'16 ( [ \tune 3 d'' \tune 19 d'->) ]
-  \tune 17 d'16 ( [ \tune 3 d'' \tune 19 d') ]
-  \tune 17 d'16 ( [ \tune 3 d''-> \tune 19 d' \tune 13 d'' ) ]
-  \tune 17 d'16 ( [ \tune 3 d'' \tune 19 d'-> \tune 13 d'' ) ] \p
-  \tonic g
-  \tune 17 d'16 ( [ \mf \tune 3 d'' \tune 19 d'' ) ] |
-
-  \tune 17 d''16-> ( [ \f \> \tune 3 d'' ) ]
-  \tune 17 d''16 ( [ \tune 3 d'' ) ]
-  \tune 17 d''16 ( [ \tune 3 d''-> ) ]
-  \tune 17 d''16 ( [ \tune 3 d'' ) ]
-  \tune 17 d''16 ( [ \tune 3 d'' \tune 19 d''-> ) ]
-  \tune 17 d''16 ( [ \tune 3 d'' \tune 19 d'' ) ]
-  \tune 17 d''16 ( [ \tune 3 d''-> \tune 19 d'' \tune 13 d'' ) ] \p
-  \tonic e
-  \tune 13 d''16 ( [ \mf \tune 19 d''' ] ) |
 }
