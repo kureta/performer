@@ -44,7 +44,12 @@
 	s1
 	s4
 	\cadenzaOn
+	\accidentalStyle neo-modern
 	\slow_one
+	s1
+	\cadenzaOff
+        \time 5/4
+	\end_one
       }
       \new Staff \with {instrumentName = "Flute II" } {
         \tempo 4 = 90
@@ -55,8 +60,12 @@
 	s1
 	s4
 	\cadenzaOn
-	s4.
+	\accidentalStyle neo-modern
 	\slow_two
+	s1
+	\cadenzaOff
+        \time 5/4
+	\end_two
       }
       \new Staff \with {instrumentName = "Flute IV" } {
         \tempo 4 = 90
@@ -68,8 +77,12 @@
 	\flute_three_b_accent
 	\three_b_slow
 	\cadenzaOn
-	s1 s1
+	\accidentalStyle neo-modern
 	\slow_three
+	s1
+	\cadenzaOff
+        \time 5/4
+	\end_three
       }
       \new Staff \with {instrumentName = "Flute V" } {
         \tempo 4 = 90
@@ -81,8 +94,12 @@
 	\flute_four_b_accent
 	\four_b_slow
 	\cadenzaOn
-	s1 s2
+	\accidentalStyle neo-modern
 	\slow_four
+	s1
+	\cadenzaOff
+        \time 5/4
+	\end_four
       }
       \new Staff \with {instrumentName = "Flute III" } {
         \tempo 4 = 90
@@ -92,6 +109,13 @@
 	\intro_flute_three_drone
 	\time 4/4
 	\intro_flute_three_drone_b
+	\cadenzaOn
+	\accidentalStyle neo-modern
+	\slow_five
+	s1
+	\cadenzaOff
+        \time 5/4
+	\end_bass
       }
     >>
   }

@@ -263,44 +263,350 @@ slow_one = {
   \tune 31 e'''1 ( \pp \<
   \tune 31 e'''1 \mf \>
   \tune 31 e'''1 ) \pp
+  \break
+  \tune 30 e'''1 ( \pp \<
+  \tune 30 e'''1 \mf \>
+  \tune 30 e'''1 ) \pp
+  s2
+  \tune 31 e'''1 ( \pp \<
+  \tune 31 e'''1 \mf \>
+  \tune 31 e'''1 ) \pp
+  \tune 31 e'''1 ( \pp \<
+  \tune 31 e'''1 \mf \>
+  \tune 31 e'''1 ) \pp
+  \tune 30 e'''1 ( \pp \<
+  \tune 30 e'''1 \mf \>
+  \tune 30 e'''1 ) \pp
+  \break
+
+  \tune 30 e'''1 ( \pp \<
+  \tune 30 e'''1 \mf \>
+  \tune 30 e'''1 ) \pp
+  \tune 26 e'''1 ( \pp \<
+  \tune 26 e'''1 \mf \>
+  \tune 26 e'''1 ) \pp
+  \tune 22 e'''2 ( \pp \<
+  \tune 22 e'''2 \mf \>
+  \tune 22 e'''2 ) \pp
+  \tune 18 e'''2 ( \pp \<
+  \tune 18 e'''2 \mf \>
+  \tune 18 e'''2 ) \pp
+  \tune 18 e''2 ( \p \<
+  \tune 18 e''2 \f \>
+  \tune 18 e''2 ) \p
+
+  \tune 14 e''4 ( \p \<
+  \tune 14 e''4 \f \>
+  \tune 14 e''4 ) \p
+  \tune 10 e''4 ( \mp \<
+  \tune 10 e''4 \ff \>
+  \tune 10 e''4 ) \mp
+  \tune 6 e''4 ( \mp \<
+  \tune 6 e''4 \ff \>
+  \tune 6 e''4 ) \mp
+
+  \tune 7 e''1 \mf
+  \tune 7 e''4-> \mf
+  \tune 7 e''1 \mf
+  \tune 7 e''4-> \mf
+  \tune 7 e''1 \mf
+  \tune 7 e''4-> \mf
+  \tune 7 e''1 \mf
+  \tune 7 e''4-> \mf
+  \tune 7 e''1 \mf
+  \tune 7 e''4-> \mf
+
+  s1 s4 s4
+  \tune 35 e''2. ( \ppp \< \tune 35 e''4 ) \mf
+  s1
+  \tune 35 e''2. ( \ppp \< \tune 35 e''4 ) \mf
 }
 
 slow_two = {
   \global
   \mixed
   \tonic e
+  s4.
   \tune 29 e''1 ( \pp \<
   \tune 29 e''1 \mf \>
   \tune 29 e''1 ) \pp
   \tune 29 e'''1 ( \pp \<
   \tune 29 e'''1 \mf \>
   \tune 29 e'''1 ) \pp
+  s2 s8
+  \tune 29 e''1 ( \pp \<
+  \tune 29 e''1 \mf \>
+  \tune 29 e''1 ) \pp
+  \tune 29 e'''1 ( \pp \<
+  \tune 29 e'''1 \mf \>
+  \tune 29 e'''1 ) \pp
+  \break
+  \tune 29 e'''2 ( \p \<
+  \tune 29 e'''2 \f \>
+  \tune 29 e'''2 ) \p
+  \tune 26 e'''2 ( \p \<
+  \tune 26 e'''2 \f \>
+  \tune 26 e'''2 ) \p
+  \tune 29 e''1 ( \pp \<
+  \tune 29 e''1 \mf \>
+  \tune 29 e''1 ) \pp
+
+  \tune 29 e'''1 ( \pp \<
+  \tune 29 e'''1 \mf \>
+  \tune 29 e'''1 ) \pp
+  \tune 25 e'''1 ( \pp \<
+  \tune 25 e'''1 \mf \>
+  \tune 25 e'''1 ) \pp
+  \tune 21 e'''2 ( \pp \<
+  \tune 21 e'''2 \mf \>
+  \tune 21 e'''2 ) \pp
+  \tune 17 e'''2 ( \pp \<
+  \tune 17 e'''2 \mf \>
+  \tune 17 e'''2 ) \pp
+  \tune 17 e''2 ( \p \<
+  \tune 17 e''2 \f \>
+  \tune 17 e''2 ) \p
+
+  \tune 13 e''4 ( \p \<
+  \tune 13 e''4 \f \>
+  \tune 13 e''4 ) \p
+  \tune 9 e''4 ( \mp \<
+  \tune 9 e''4 \ff \>
+  \tune 9 e''4 ) \mp
+  \tune 5 e''4 ( \mp \<
+  \tune 5 e''4 \ff \>
+  \tune 5 e''4 ) \mp
+
+  \tune 5 e'1 \mf
+  \tune 5 e'4-> \mf
+  \tune 5 e'1 \mf
+  \tune 5 e'4-> \mf
+  \tune 5 e'1 \mf
+  \tune 5 e'4-> \mf
+  \tune 5 e'1 \mf
+  \tune 5 e'4-> \mf
+  \tune 5 e'1 \mf
+
+  s1 s4
+  \tune 28 e''2. ( \ppp \< \tune 28 e''4 ) \mf
+  s1
+  \tune 28 e''2. ( \ppp \< \tune 28 e''4 ) \mf
 }
 
 slow_three = {
   \global
   \mixed
   \tonic e
+  s1 s1
   \tune 23 e''1 ( \pp \<
   \tune 23 e''1 \mf \>
   \tune 23 e''1 ) \pp
   \tune 21 e'1 ( \pp \<
   \tune 21 e'1 \mf \>
   \tune 21 e'1 ) \pp
+  s1
+  \tune 6 e'2 ( \pp \<
+  \tune 6 e'2 \f \>
+  \tune 6 e'2 ) \pp
+  \tune 8 e'2 ( \pp \<
+  \tune 8 e'2 \f \>
+  \tune 8 e'2 ) \pp
+  s1 s2
+  \tune 23 e'''2 ( \p \<
+  \tune 23 e'''2 \f \>
+  \tune 23 e'''2 ) \p
+  \tune 28 e'''2 ( \p \<
+  \tune 28 e'''2 \f \>
+  \tune 28 e'''2 ) \p
+  \tune 23 e''1 ( \pp \<
+  \tune 23 e''1 \mf \>
+  \tune 23 e''1 ) \pp
+
+  \tune 28 e''1 ( \pp \<
+  \tune 28 e''1 \mf \>
+  \tune 28 e''1 ) \pp
+  \tune 24 e'''1 ( \pp \<
+  \tune 24 e'''1 \mf \>
+  \tune 24 e'''1 ) \pp
+  \tune 20 e'''2 ( \pp \<
+  \tune 20 e'''2 \mf \>
+  \tune 20 e'''2 ) \pp
+  \tune 16 e'''2 ( \pp \<
+  \tune 16 e'''2 \mf \>
+  \tune 16 e'''2 ) \pp
+  \tune 16 e''2 ( \p \<
+  \tune 16 e''2 \f \>
+  \tune 16 e''2 ) \p
+
+  \tune 12 e''4 ( \p \<
+  \tune 12 e''4 \f \>
+  \tune 12 e''4 ) \p
+  \tune 8 e''4 ( \mp \<
+  \tune 8 e''4 \ff \>
+  \tune 8 e''4 ) \mp
+  \tune 4 e''4 ( \mp \<
+  \tune 4 e''4 \ff \>
+  \tune 4 e''4 ) \pp
+
+  \tune 3 e''1 \mf
+  \tune 3 e''4-> \mf
+  \tune 3 e''1 \mf
+  \tune 3 e''4-> \mf
+  \tune 3 e''1 \mf
+  \tune 3 e''4-> \mf
+  \tune 3 e''1 \mf
+  \tune 3 e''4-> \mf
+
+  s1 s4 s2
+  \tune 21 e''2. ( \ppp \< \tune 21 e''4 ) \mf
+  s1
+  \tune 21 e''2. ( \ppp \< \tune 21 e''4 ) \mf
 }
 
 slow_four = {
   \global
   \mixed
   \tonic e
+  s1 s2
   \tune 7 e'4 ( \pp \<
   \tune 7 e'4 \mf \>
   \tune 7 e'4 ) \pp
   \tune 17 e''2 ( \pp \<
   \tune 17 e''2 \mf \>
   \tune 17 e''2 ) \pp
+  s1
+  \tune 3 e'4 ( \pp \<
+  \tune 3 e'4 \ff \>
+  \tune 3 e'4 ) \pp
+  \tune 5 e'4 ( \pp \<
+  \tune 5 e'4 \ff \>
+  \tune 5 e'4 ) \pp
+  s2
+  \tune 7 e'2 ( \pp \<
+  \tune 7 e'2 \ff \>
+  \tune 7 e'2 ) \pp
+  s4
+  \tune 5 e'2 ( \pp \<
+  \tune 5 e'2 \f \>
+  \tune 5 e'2 ) \pp
+  \tune 7 e'2 ( \pp \<
+  \tune 7 e'2 \f \>
+  \tune 7 e'2 ) \pp
+  s1 s4
+  \tune 27 e'''2 ( \p \<
+  \tune 27 e'''2 \f \>
+  \tune 27 e'''2 ) \p
+  \tune 24 e'''2 ( \p \<
+  \tune 24 e'''2 \f \>
+  \tune 24 e'''2 ) \p
+  \tune 7 e''2 ( \pp \<
+  \tune 7 e''2 \mf \>
+  \tune 7 e''2 ) \pp
+
+  \tune 31 e''1 ( \pp \<
+  \tune 31 e''1 \mf \>
+  \tune 31 e''1 ) \pp
+  \tune 27 e''1 ( \pp \<
+  \tune 27 e''1 \mf \>
+  \tune 27 e''1 ) \pp
+  \break
+  \tune 23 e'''2 ( \pp \<
+  \tune 23 e'''2 \mf \>
+  \tune 23 e'''2 ) \pp
+  \tune 19 e'''2 ( \pp \<
+  \tune 19 e'''2 \mf \>
+  \tune 19 e'''2 ) \pp
+  \tune 15 e'''2 ( \pp \<
+  \tune 15 e'''2 \mf \>
+  \tune 15 e'''2 ) \pp
+  \tune 15 e''2 ( \p \<
+  \tune 15 e''2 \f \>
+  \tune 15 e''2 ) \p
+
+  \break
+  \tune 11 e''4 ( \p \<
+  \tune 11 e''4 \f \>
+  \tune 11 e''4 ) \p
+  \tune 7 e''4 ( \mp \<
+  \tune 7 e''4 \ff \>
+  \tune 7 e''4 ) \mp
+  \tune 3 e''4 ( \mp \<
+  \tune 3 e''4 \ff \>
+  \tune 3 e''4 ) \mp
+
+  \tune 1 e'1 \mf
+  \tune 1 e'4-> \mf
+  \tune 1 e'1 \mf
+  \tune 1 e'4-> \mf
+  \tune 1 e'1 \mf
+  \tune 1 e'4-> \mf
+  \tune 1 e'1 \mf
+  \tune 1 e'4-> \mf
+  \tune 1 e'1 \mf
+  \tune 1 e'4-> \mf
+
+  s1 s4
+  \tune 14 e''2. ( \ppp \< \tune 14 e''4 ) \mf
+  s1
+  \tune 14 e''2. ( \ppp \< \tune 14 e''4 ) \mf
 }
 
+slow_five = {
+  \repeat unfold 34 s1
+  \tune 1 e1 ( \ppp \< \tune 1 e1 \tune 1 e1 \tune 1 e1 \tune 1 e1 \tune 1 e4 \ff )
+  \break
+  s1
+  \tune 7 e,1
+  s1
+  \tune 7 e,1
+}
+
+end_one = {
+  \tonic d
+  \break
+  \tuplet 3/2 { \tune 2 e''8-> \mf ( [ \tune 7 b-. ) r ] } r4
+  \tuplet 3/2 { \tune 2 e''8-> \mf ( [ \tune 7 b-. ) r ] } r2 |
+  \tuplet 3/2 { \tune 2 e''8-> \mf ( [ \tune 7 b-. ) r ] } r2
+  \tuplet 3/2 { \tune 2 e''8-> \mf ( [ \tune 7 b-. ) r ] } r4 |
+  \tune 2 e''4-> \mf \tune 7 b r2. |
+}
+
+end_three = {
+  \tonic d
+  \break
+  \tuplet 3/2 { \tune 11 e''8-> \mf ( [ \tune 3 b'-. ) r ] } r4
+  \tuplet 3/2 { \tune 11 e''8-> \mf ( [ \tune 3 b'-. ) r ] } r2 |
+  \tuplet 3/2 { \tune 11 e''8-> \mf ( [ \tune 3 b'-. ) r ] } r2
+  \tuplet 3/2 { \tune 11 e''8-> \mf ( [ \tune 3 b'-. ) r ] } r4 |
+  \tune 11 e''4-> \mf \tune 3 b' r2. |
+}
+
+end_two = {
+  \tonic d
+  \break
+  \tuplet 3/2 { \tune 5 e'8-> \mf ( [ \tune 13 b'-. ) r ] } r2
+  \tuplet 3/2 { \tune 5 e'8-> \mf ( [ \tune 13 b'-. ) r ] } r4 |
+  \tuplet 3/2 { \tune 5 e'8-> \mf ( [ \tune 13 b'-. ) r ] } r4
+  \tuplet 3/2 { \tune 5 e'8-> \mf ( [ \tune 13 b'-. ) r ] } r2 |
+  \tune 5 e'4-> \mf \tune 13 b' r2. |
+}
+
+end_four = {
+  \tonic d
+  \break
+  \tuplet 3/2 { \tune 7 e'8-> \mf ( [ \tune 17 b'-. ) r ] } r2
+  \tuplet 3/2 { \tune 7 e'8-> \mf ( [ \tune 17 b'-. ) r ] } r4 |
+  \tuplet 3/2 { \tune 7 e'8-> \mf ( [ \tune 17 b'-. ) r ] } r4
+  \tuplet 3/2 { \tune 7 e'8-> \mf ( [ \tune 17 b'-. ) r ] } r2 |
+  \tune 7 e'4-> \mf \tune 17 b' r2. |
+}
+
+end_bass = {
+  \tonic d
+  \tune 2 e,4 \f r4 \tune 2 e,4 \tune 2 e,4 r4 |
+  \tune 2 e,4 r4 \tune 2 e,4 \tune 2 e,4 r4 |
+  \tune 2 e,4 e, r2. |
+}
 % =================== Below is garbage ===================
 flute_one_a = {
   \global
