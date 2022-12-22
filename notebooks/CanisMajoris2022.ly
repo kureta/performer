@@ -48,8 +48,9 @@
 	\slow_one
 	s1
 	\cadenzaOff
-        \time 5/4
 	\end_one
+	\end_one
+	\bar "."
       }
       \new Staff \with {instrumentName = "Flute II" } {
         \tempo 4 = 90
@@ -64,8 +65,9 @@
 	\slow_two
 	s1
 	\cadenzaOff
-        \time 5/4
 	\end_two
+	\end_two
+	\bar "."
       }
       \new Staff \with {instrumentName = "Flute IV" } {
         \tempo 4 = 90
@@ -81,8 +83,9 @@
 	\slow_three
 	s1
 	\cadenzaOff
-        \time 5/4
 	\end_three
+	\end_three
+	\bar "."
       }
       \new Staff \with {instrumentName = "Flute V" } {
         \tempo 4 = 90
@@ -98,8 +101,9 @@
 	\slow_four
 	s1
 	\cadenzaOff
-        \time 5/4
 	\end_four
+	\end_four
+	\bar "."
       }
       \new Staff \with {instrumentName = "Flute III" } {
         \tempo 4 = 90
@@ -114,8 +118,9 @@
 	\slow_five
 	s1
 	\cadenzaOff
-        \time 5/4
 	\end_bass
+	\end_bass
+	\bar "."
       }
     >>
   }

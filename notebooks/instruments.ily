@@ -564,48 +564,58 @@ slow_five = {
 end_one = {
   \tonic d
   \break
+  \time 5/4
   \tuplet 3/2 { \tune 2 e''8-> \mf ( [ \tune 7 b-. ) r ] } r4
   \tuplet 3/2 { \tune 2 e''8-> \mf ( [ \tune 7 b-. ) r ] } r2 |
   \tuplet 3/2 { \tune 2 e''8-> \mf ( [ \tune 7 b-. ) r ] } r2
   \tuplet 3/2 { \tune 2 e''8-> \mf ( [ \tune 7 b-. ) r ] } r4 |
-  \tune 2 e''4-> \mf \tune 7 b r2. |
+  \time 2/4
+  \tune 2 e''4-> \mf \tune 7 b |
 }
 
 end_three = {
   \tonic d
   \break
+  \time 5/4
   \tuplet 3/2 { \tune 11 e''8-> \mf ( [ \tune 3 b'-. ) r ] } r4
   \tuplet 3/2 { \tune 11 e''8-> \mf ( [ \tune 3 b'-. ) r ] } r2 |
   \tuplet 3/2 { \tune 11 e''8-> \mf ( [ \tune 3 b'-. ) r ] } r2
   \tuplet 3/2 { \tune 11 e''8-> \mf ( [ \tune 3 b'-. ) r ] } r4 |
-  \tune 11 e''4-> \mf \tune 3 b' r2. |
+  \time 2/4
+  \tune 11 e''4-> \mf \tune 3 b' |
 }
 
 end_two = {
   \tonic d
   \break
+  \time 5/4
   \tuplet 3/2 { \tune 5 e'8-> \mf ( [ \tune 13 b'-. ) r ] } r2
   \tuplet 3/2 { \tune 5 e'8-> \mf ( [ \tune 13 b'-. ) r ] } r4 |
   \tuplet 3/2 { \tune 5 e'8-> \mf ( [ \tune 13 b'-. ) r ] } r4
   \tuplet 3/2 { \tune 5 e'8-> \mf ( [ \tune 13 b'-. ) r ] } r2 |
-  \tune 5 e'4-> \mf \tune 13 b' r2. |
+  \time 2/4
+  \tune 5 e'4-> \mf \tune 13 b' |
 }
 
 end_four = {
   \tonic d
   \break
+  \time 5/4
   \tuplet 3/2 { \tune 7 e'8-> \mf ( [ \tune 17 b'-. ) r ] } r2
   \tuplet 3/2 { \tune 7 e'8-> \mf ( [ \tune 17 b'-. ) r ] } r4 |
   \tuplet 3/2 { \tune 7 e'8-> \mf ( [ \tune 17 b'-. ) r ] } r4
   \tuplet 3/2 { \tune 7 e'8-> \mf ( [ \tune 17 b'-. ) r ] } r2 |
-  \tune 7 e'4-> \mf \tune 17 b' r2. |
+  \time 2/4
+  \tune 7 e'4-> \mf \tune 17 b' |
 }
 
 end_bass = {
   \tonic d
+  \time 5/4
   \tune 2 e,4 \f r4 \tune 2 e,4 \tune 2 e,4 r4 |
   \tune 2 e,4 r4 \tune 2 e,4 \tune 2 e,4 r4 |
-  \tune 2 e,4 e, r2. |
+  \time 2/4
+  \tune 2 e,4 e, |
 }
 % =================== Below is garbage ===================
 flute_one_a = {
