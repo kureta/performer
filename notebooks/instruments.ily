@@ -252,6 +252,55 @@ four_b_slow = {
   \tune 11 d''1 ) r4 |
 }
 
+% =================== Slow music =========================
+slow_one = {
+  \global
+  \mixed
+  \tonic e
+  \tune 31 e'''1 ( \pp \<
+  \tune 31 e'''1 \mf \>
+  \tune 31 e'''1 ) \pp
+  \tune 31 e'''1 ( \pp \<
+  \tune 31 e'''1 \mf \>
+  \tune 31 e'''1 ) \pp
+}
+
+slow_two = {
+  \global
+  \mixed
+  \tonic e
+  \tune 29 e''1 ( \pp \<
+  \tune 29 e''1 \mf \>
+  \tune 29 e''1 ) \pp
+  \tune 29 e'''1 ( \pp \<
+  \tune 29 e'''1 \mf \>
+  \tune 29 e'''1 ) \pp
+}
+
+slow_three = {
+  \global
+  \mixed
+  \tonic e
+  \tune 23 e''1 ( \pp \<
+  \tune 23 e''1 \mf \>
+  \tune 23 e''1 ) \pp
+  \tune 21 e'1 ( \pp \<
+  \tune 21 e'1 \mf \>
+  \tune 21 e'1 ) \pp
+}
+
+slow_four = {
+  \global
+  \mixed
+  \tonic e
+  \tune 7 e'4 ( \pp \<
+  \tune 7 e'4 \mf \>
+  \tune 7 e'4 ) \pp
+  \tune 17 e''2 ( \pp \<
+  \tune 17 e''2 \mf \>
+  \tune 17 e''2 ) \pp
+}
+
 % =================== Below is garbage ===================
 flute_one_a = {
   \global

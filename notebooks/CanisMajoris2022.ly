@@ -41,6 +41,10 @@
         \clef treble
         \intro_flute_one
 	\intro_flute_one_b
+	s1
+	s4
+	\cadenzaOn
+	\slow_one
       }
       \new Staff \with {instrumentName = "Flute II" } {
         \tempo 4 = 90
@@ -48,6 +52,11 @@
         \clef treble
         \intro_flute_two
         \intro_flute_two_b
+	s1
+	s4
+	\cadenzaOn
+	s4.
+	\slow_two
       }
       \new Staff \with {instrumentName = "Flute IV" } {
         \tempo 4 = 90
@@ -58,6 +67,9 @@
 	\three_b_fast
 	\flute_three_b_accent
 	\three_b_slow
+	\cadenzaOn
+	s1 s1
+	\slow_three
       }
       \new Staff \with {instrumentName = "Flute V" } {
         \tempo 4 = 90
@@ -68,6 +80,9 @@
 	\four_b_fast
 	\flute_four_b_accent
 	\four_b_slow
+	\cadenzaOn
+	s1 s2
+	\slow_four
       }
       \new Staff \with {instrumentName = "Flute III" } {
         \tempo 4 = 90
