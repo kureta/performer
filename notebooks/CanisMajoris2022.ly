@@ -6,10 +6,10 @@
 \include "./instruments.ily"
 
 \header {
-  title = "Title?"
-  subtitle = "Study for an Ensemble of Fictional Flutes"
+  title = "Study No. 2 for AI Ensemble (2022)"
+  subtitle = "Piece for a Group of Imaginary Flutes"
   composer = "Şahin Kureta"
-  tagline = #f
+  tagline = ##f
 }
 
 \paper {
