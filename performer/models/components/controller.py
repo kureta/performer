@@ -196,6 +196,8 @@ class Controller(nn.Module):
         self.dense_loudness = nn.Linear(decoder_mlp_units, 1)
         self.dense_filter = nn.Linear(decoder_mlp_units, n_noise_filters)
 
+        self.dense_f0 = nn.Linear(decoder_mlp_units, 1)
+
     def forward(
         self, f0: Tensor, loudness: Tensor
     ) -> Tuple[Tuple[Tensor, Tensor, Tensor], Tensor]:
@@ -215,8 +217,10 @@ class Controller(nn.Module):
         noise_distribution = self.dense_filter(latent)
         noise_distribution = modified_sigmoid(noise_distribution)
 
+        new_f0 = modified_sigmoid(self.dense_f0(latent)) * 1003.0 + f0
+
         harm_controls = (
-            f0,
+            new_f0,
             master_amplitude.transpose(1, 2),
             overtone_amplitudes.transpose(1, 2).unsqueeze(1),
         )
