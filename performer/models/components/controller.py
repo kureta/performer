@@ -220,7 +220,7 @@ class Controller(nn.Module):
         new_f0 = modified_sigmoid(self.dense_f0(latent)) * 1003.0 + f0
 
         harm_controls = (
-            new_f0,
+            new_f0.transpose(1, 2),
             master_amplitude.transpose(1, 2),
             overtone_amplitudes.transpose(1, 2).unsqueeze(1),
         )
