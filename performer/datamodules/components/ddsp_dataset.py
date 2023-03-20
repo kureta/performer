@@ -19,7 +19,7 @@ def generate_data(
 ):
     ld = Loudness().cuda()
 
-    wav_files = list(wav_dir.glob("*.[wav]*"))
+    wav_files = list(wav_dir.glob("*.[wav,mp3]*"))
 
     wav_data = []
     ld_data = []
