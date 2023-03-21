@@ -29,7 +29,7 @@ nbdime
 # ----- project specific ----- #
 einops>=0.4.1
 dvc[ssh,s3]>=2.18.0
-jupyter>=1.0.0
+jupyterlab
 librosa>=0.9.2
 matplotlib>=3.5.3
 numpy>=1.22.4
