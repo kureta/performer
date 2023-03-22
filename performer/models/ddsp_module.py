@@ -103,7 +103,7 @@ class DDSP(LightningModule):
 
         return loss
 
-    def training_epoch_end(self, outputs):
+    def on_train_epoch_end(self):
         self.train_acc.reset()
 
     def validation_step(self, batch, batch_nb):
@@ -168,7 +168,7 @@ class DDSP(LightningModule):
 
         return loss
 
-    def validation_epoch_end(self, outputs):
+    def on_validation_epoch_end(self):
         acc = self.val_acc.compute()
         self.val_acc_best.update(acc)
         self.log("val/acc_best", self.val_acc_best.compute())

@@ -1,3 +1,42 @@
+[tool.poetry]
+name = "performer"
+version = "0.1.0"
+description = ""
+authors = ["kureta <skureta@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.23"
+numba = "^0.56"
+llvmlite = "^0.39"
+librosa = "^0.10.0.post2"
+torch = "^2.0.0"
+torchaudio = "^2.0.1"
+torchvision = "^0.15.1"
+lightning = "^2.0.0"
+torchmetrics = "^0.11.4"
+hydra-core = "^1.3.2"
+hydra-colorlog = "^1.2.0"
+hydra-zen = "^0.10.0"
+wandb = "^0.14.0"
+einops = "^0.6.0"
+dvc = {extras = ["s3", "ssh"], version = "^2.51.0"}
+jupyterlab = "^3.6.2"
+matplotlib = "^3.7.1"
+tqdm = "^4.65.0"
+torchcrepe = {git = "https://github.com/kureta/torchcrepe.git", branch = "master"}
+tensorboard = "^2.12.0"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.2.0"
+nbdime = "^3.1.1"
+nbstripout = "^0.6.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.pytest.ini_options]
 addopts = [
   "--color=yes",
