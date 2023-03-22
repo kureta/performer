@@ -1,0 +1,4 @@
+outs:
+- md5: 07eaf4bac031d8b3b1263cdad96511e6
+  size: 100507737
+  path: drums_baseline.ckpt
