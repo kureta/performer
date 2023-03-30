@@ -27,6 +27,9 @@ matplotlib = "^3.7.1"
 tqdm = "^4.65.0"
 torchcrepe = {git = "https://github.com/kureta/torchcrepe.git", branch = "master"}
 tensorboard = "^2.12.0"
+ipytone = "^0.4.1"
+music21 = "^8.1.0"
+plotly = "^5.13.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.2.0"

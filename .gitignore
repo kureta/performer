@@ -149,3 +149,6 @@ configs/local/default.yaml
 logs/
 .env
 .autoenv
+
+# Custom
+sounds/

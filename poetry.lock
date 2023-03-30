@@ -814,6 +814,18 @@ files = [
 ]
 
 [[package]]
+name = "chardet"
+version = "5.1.0"
+description = "Universal encoding detector for Python 3"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "chardet-5.1.0-py3-none-any.whl", hash = "sha256:362777fb014af596ad31334fde1e8c327dfdb076e1960d1694662d46a6917ab9"},
+    {file = "chardet-5.1.0.tar.gz", hash = "sha256:0d62712b956bc154f85fb0a266e2a3c5913c2967e00348701b32411d6def31e5"},
+]
+
+[[package]]
 name = "charset-normalizer"
 version = "3.1.0"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
@@ -2418,6 +2430,47 @@ files = [
 ]
 
 [[package]]
+name = "ipytone"
+version = "0.4.1"
+description = "Interactive audio in Jupyter"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "ipytone-0.4.1-py2.py3-none-any.whl", hash = "sha256:a610f6cdad11cf237b58dc7ff463a3ce8fc83a3ea33a010b1aaba1c18ee4b220"},
+    {file = "ipytone-0.4.1.tar.gz", hash = "sha256:b40f2eb1db8ad69bab08469531d586397cc633707fc2a3e15a67a76fab37e62c"},
+]
+
+[package.dependencies]
+ipywidgets = ">=7.6.0"
+numpy = "*"
+traittypes = "*"
+
+[package.extras]
+test = ["pytest (>=4.6)", "pytest-cov", "pytest-mock"]
+
+[[package]]
+name = "ipywidgets"
+version = "8.0.5"
+description = "Jupyter interactive widgets"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "ipywidgets-8.0.5-py3-none-any.whl", hash = "sha256:a6e5c0392f86207fae304688a670afb26b2fd819592cfc0812777c2fdf22dbad"},
+    {file = "ipywidgets-8.0.5.tar.gz", hash = "sha256:89a1930b9ef255838571a2415cc4a15e824e4316b8f067805d1d03b98b6a8c5f"},
+]
+
+[package.dependencies]
+ipython = ">=6.1.0"
+jupyterlab-widgets = ">=3.0,<4.0"
+traitlets = ">=4.3.1"
+widgetsnbextension = ">=4.0,<5.0"
+
+[package.extras]
+test = ["ipykernel", "jsonschema", "pytest (>=3.6.0)", "pytest-cov", "pytz"]
+
+[[package]]
 name = "isoduration"
 version = "20.11.0"
 description = "Operations with ISO 8601 durations"
@@ -2557,6 +2610,23 @@ files = [
 
 [package.extras]
 dev = ["hypothesis"]
+
+[[package]]
+name = "jsonpickle"
+version = "3.0.1"
+description = "Python library for serializing any arbitrary object graph into JSON"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "jsonpickle-3.0.1-py2.py3-none-any.whl", hash = "sha256:130d8b293ea0add3845de311aaba55e6d706d0bb17bc123bd2c8baf8a39ac77c"},
+    {file = "jsonpickle-3.0.1.tar.gz", hash = "sha256:032538804795e73b94ead410800ac387fdb6de98f8882ac957fcd247e3a85200"},
+]
+
+[package.extras]
+docs = ["jaraco.packaging (>=3.2)", "rst.linker (>=1.9)", "sphinx"]
+testing = ["ecdsa", "feedparser", "gmpy2", "numpy", "pandas", "pymongo", "pytest (>=3.5,!=3.7.3)", "pytest-black-multipy", "pytest-checkdocs (>=1.2.3)", "pytest-cov", "pytest-flake8 (>=1.1.1)", "scikit-learn", "sqlalchemy"]
+testing-libs = ["simplejson", "ujson"]
 
 [[package]]
 name = "jsonpointer"
@@ -2866,6 +2936,18 @@ requests = ">=2.28"
 docs = ["autodoc-traits", "docutils (<0.20)", "jinja2 (<3.2.0)", "mistune (<3)", "myst-parser", "pydata-sphinx-theme", "sphinx", "sphinx-copybutton", "sphinxcontrib-openapi"]
 openapi = ["openapi-core (>=0.16.1,<0.17.0)", "ruamel-yaml"]
 test = ["codecov", "ipykernel", "jupyterlab-server[openapi]", "openapi-spec-validator (>=0.5.1,<0.6.0)", "pytest (>=7.0)", "pytest-console-scripts", "pytest-cov", "pytest-jupyter[server] (>=0.6.2)", "pytest-timeout", "requests-mock", "sphinxcontrib-spelling", "strict-rfc3339", "werkzeug"]
+
+[[package]]
+name = "jupyterlab-widgets"
+version = "3.0.6"
+description = "Jupyter interactive widgets for JupyterLab"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "jupyterlab_widgets-3.0.6-py3-none-any.whl", hash = "sha256:e95d08adf4f9c37a57da5fff8a65d00480199885fd2ecd2583fd9560b594b4e9"},
+    {file = "jupyterlab_widgets-3.0.6.tar.gz", hash = "sha256:a464d68a7b9ebabdc135196389381412a39503d89302be0867d0ff3b2428ebb8"},
+]
 
 [[package]]
 name = "kiwisolver"
@@ -3390,6 +3472,18 @@ files = [
 ]
 
 [[package]]
+name = "more-itertools"
+version = "9.1.0"
+description = "More routines for operating on iterables, beyond itertools"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "more-itertools-9.1.0.tar.gz", hash = "sha256:cabaa341ad0389ea83c17a94566a53ae4c9d07349861ecb14dc6d0345cf9ac5d"},
+    {file = "more_itertools-9.1.0-py3-none-any.whl", hash = "sha256:d2bc7f02446e86a68911e58ded76d6561eea00cddfb2a91e7019bbb586c799f3"},
+]
+
+[[package]]
 name = "mpmath"
 version = "1.3.0"
 description = "Python library for arbitrary-precision floating-point arithmetic"
@@ -3563,6 +3657,28 @@ files = [
     {file = "multidict-6.0.4-cp39-cp39-win_amd64.whl", hash = "sha256:33029f5734336aa0d4c0384525da0387ef89148dc7191aae00ca5fb23d7aafc2"},
     {file = "multidict-6.0.4.tar.gz", hash = "sha256:3666906492efb76453c0e7b97f2cf459b0682e7402c0489a95484965dbc1da49"},
 ]
+
+[[package]]
+name = "music21"
+version = "8.1.0"
+description = "A Toolkit for Computer-Aided Musical Analysis and Computational Musicology."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "music21-8.1.0-py3-none-any.whl", hash = "sha256:acb73e62712ea27d2927bbde89cd68ae1fc878f0ea1ec912c1addc4426fe5fc4"},
+    {file = "music21-8.1.0.tar.gz", hash = "sha256:75512fd21c38acc7ce59eae5efb9d69c7d8d1e710d1507f9945285e443d5d505"},
+]
+
+[package.dependencies]
+chardet = "*"
+joblib = "*"
+jsonpickle = "*"
+matplotlib = "*"
+more-itertools = "*"
+numpy = "*"
+requests = "*"
+webcolors = ">=1.5"
 
 [[package]]
 name = "nanotime"
@@ -4388,6 +4504,21 @@ files = [
 [package.extras]
 docs = ["furo (>=2022.12.7)", "proselint (>=0.13)", "sphinx (>=6.1.3)", "sphinx-autodoc-typehints (>=1.22,!=1.23.4)"]
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.2.2)", "pytest (>=7.2.1)", "pytest-cov (>=4)", "pytest-mock (>=3.10)"]
+
+[[package]]
+name = "plotly"
+version = "5.13.1"
+description = "An open-source, interactive data visualization library for Python"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "plotly-5.13.1-py2.py3-none-any.whl", hash = "sha256:f776a5c664908450c6c1727f61e8e2e22798d9c6c69d37a9057735365084a2fa"},
+    {file = "plotly-5.13.1.tar.gz", hash = "sha256:90ee9a1fee0dda30e2830e129855081ea17bd1b06a553a62b62de15caff1a219"},
+]
+
+[package.dependencies]
+tenacity = ">=6.2.0"
 
 [[package]]
 name = "pooch"
@@ -5647,6 +5778,7 @@ files = [
     {file = "soundfile-0.12.1-py2.py3-none-any.whl", hash = "sha256:828a79c2e75abab5359f780c81dccd4953c45a2c4cd4f05ba3e233ddf984b882"},
     {file = "soundfile-0.12.1-py2.py3-none-macosx_10_9_x86_64.whl", hash = "sha256:d922be1563ce17a69582a352a86f28ed8c9f6a8bc951df63476ffc310c064bfa"},
     {file = "soundfile-0.12.1-py2.py3-none-macosx_11_0_arm64.whl", hash = "sha256:bceaab5c4febb11ea0554566784bcf4bc2e3977b53946dda2b12804b4fe524a8"},
+    {file = "soundfile-0.12.1-py2.py3-none-manylinux_2_17_x86_64.whl", hash = "sha256:2dc3685bed7187c072a46ab4ffddd38cef7de9ae5eb05c03df2ad569cf4dacbc"},
     {file = "soundfile-0.12.1-py2.py3-none-manylinux_2_31_x86_64.whl", hash = "sha256:074247b771a181859d2bc1f98b5ebf6d5153d2c397b86ee9e29ba602a8dfe2a6"},
     {file = "soundfile-0.12.1-py2.py3-none-win32.whl", hash = "sha256:59dfd88c79b48f441bbf6994142a19ab1de3b9bb7c12863402c2bc621e49091a"},
     {file = "soundfile-0.12.1-py2.py3-none-win_amd64.whl", hash = "sha256:0d86924c00b62552b650ddd28af426e3ff2d4dc2e9047dae5b3d8452e0a49a77"},
@@ -5853,6 +5985,21 @@ files = [
 widechars = ["wcwidth"]
 
 [[package]]
+name = "tenacity"
+version = "8.2.2"
+description = "Retry code until it succeeds"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "tenacity-8.2.2-py3-none-any.whl", hash = "sha256:2f277afb21b851637e8f52e6a613ff08734c347dc19ade928e519d7d2d8569b0"},
+    {file = "tenacity-8.2.2.tar.gz", hash = "sha256:43af037822bd0029025877f3b2d97cc4d7bb0c2991000a3d59d71517c5c969e0"},
+]
+
+[package.extras]
+doc = ["reno", "sphinx", "tornado (>=4.5)"]
+
+[[package]]
 name = "tensorboard"
 version = "2.12.0"
 description = "TensorBoard lets you watch Tensors Flow"
@@ -6045,18 +6192,22 @@ files = [
     {file = "torchaudio-2.0.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:b5d21ebbb55e7040d418d5062b0e882f9660d68b477b38fd436fa6c92ccbb52a"},
     {file = "torchaudio-2.0.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:6dbcd93b29d71a2f500f36a34ea5e467f510f773da85322098e6bdd8c9dc9948"},
     {file = "torchaudio-2.0.1-cp310-cp310-manylinux1_x86_64.whl", hash = "sha256:5fdaba10ff06d098d603d9eb8d2ff541c3f3fe28ba178a78787190cec0d5187f"},
+    {file = "torchaudio-2.0.1-cp310-cp310-manylinux2014_aarch64.whl", hash = "sha256:6419199c773c5045c594ff950d5e5dbbfa6c830892ec09721d4ed8704b702bfd"},
     {file = "torchaudio-2.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:a5c81e480e5dcdcba065af1e3e31678ac29518991f00260094d37a39e63d76e5"},
     {file = "torchaudio-2.0.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:e2a047675493c0aa258fec621ef40e8b01abe3d8dbc872152e4b5998418aa3c5"},
     {file = "torchaudio-2.0.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:91a28e587f708a03320eddbcc4a7dd1ad7150b3d4846b6c1557d85cc89a8d06c"},
     {file = "torchaudio-2.0.1-cp311-cp311-manylinux1_x86_64.whl", hash = "sha256:ba7740d98f601218ff667598ab3d9dab5f326878374fcb52d656f4ff033b9e96"},
+    {file = "torchaudio-2.0.1-cp311-cp311-manylinux2014_aarch64.whl", hash = "sha256:f401b192921c8b77cc5e478ede589b256dba463f1cee91172ecb376fea45a288"},
     {file = "torchaudio-2.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:0ef6754cf75ca5fd5117cb6243a6cf33552d67e9af0075aa6954b2c34bbf1036"},
     {file = "torchaudio-2.0.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:022ca1baa4bb819b78343bd47b57ff6dc6f9fc19fa4ef269946aadf7e62db3c0"},
     {file = "torchaudio-2.0.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:a153ad5cdb62de8ec9fd1360a0d080bbaf39d578ae04e788db211571e675b7e0"},
     {file = "torchaudio-2.0.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:aa7897774ab4156d0b72f7078b823ebc1371ee24c50df965447782889552367a"},
+    {file = "torchaudio-2.0.1-cp38-cp38-manylinux2014_aarch64.whl", hash = "sha256:48d133593cddfe0424a350b566d54065bf6fe7469654de7add2f11b3ef03c5d9"},
     {file = "torchaudio-2.0.1-cp38-cp38-win_amd64.whl", hash = "sha256:ac65eb067feee435debba81adfe8337fa007a06de6508c0d80261c5562b6d098"},
     {file = "torchaudio-2.0.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:e3c6c8f9ea9f0e2df7a0b9375b0dcf955906e38fc12fab542b72a861564af8e7"},
     {file = "torchaudio-2.0.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:1d0cf0779a334ec1861e9fa28bceb66a633c42e8f6b3322e2e37ff9f20d0ae81"},
     {file = "torchaudio-2.0.1-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:ab7acd2b5d351a2c65e4d935bb90b9256382bed93df57ee177bdbbe31c3cc984"},
+    {file = "torchaudio-2.0.1-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:77b953fd7278773269a9477315b8998ae7e5011cc4b2907e0df18162327482f1"},
     {file = "torchaudio-2.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:c01bcea9d4c4a6616452e6cbd44d55913d8e6dee58191b925f35d46a2bf6e71b"},
 ]
 
@@ -6123,18 +6274,22 @@ files = [
     {file = "torchvision-0.15.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:bc10d48e9a60d006d0c1b48dea87f1ec9b63d856737d592f7c5c44cd87f3f4b7"},
     {file = "torchvision-0.15.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:3708d3410fdcaf6280e358cda9de2a4ab06cc0b4c0fd9aeeac550ec2563a887e"},
     {file = "torchvision-0.15.1-cp310-cp310-manylinux1_x86_64.whl", hash = "sha256:d4de10c837f1493c1c54344388e300a06c96914c6cc55fcb2527c21f2f010bbd"},
+    {file = "torchvision-0.15.1-cp310-cp310-manylinux2014_aarch64.whl", hash = "sha256:b82fcc5abc9b5c96495c76596a1573025cc1e09d97d2d6fda717c44b9ca45881"},
     {file = "torchvision-0.15.1-cp310-cp310-win_amd64.whl", hash = "sha256:c84e97d8cc4fe167d87adad0a2a6424cff90544365545b20669bc50e6ea46875"},
     {file = "torchvision-0.15.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:97b90eb3b7333a31d049c4ccfd1064361e8491874959d38f466af64d67418cef"},
     {file = "torchvision-0.15.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:6b60e1c839ae2a071befbba69b17468d67feafdf576e90ff9645bfbee998de17"},
     {file = "torchvision-0.15.1-cp311-cp311-manylinux1_x86_64.whl", hash = "sha256:13f71a3372d9168b01481a754ebaa171207f3dc455bf2fd86906c69222443738"},
+    {file = "torchvision-0.15.1-cp311-cp311-manylinux2014_aarch64.whl", hash = "sha256:b2e8394726009090b40f6cc3a95cc878cc011dfac3d8e7a6060c79213d360880"},
     {file = "torchvision-0.15.1-cp311-cp311-win_amd64.whl", hash = "sha256:2852f501189483187ce9eb0ccd01b3f4f0918d29057e4a18b3cce8dad9a8a964"},
     {file = "torchvision-0.15.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:e5861baaeea87d19b6fd7d131e11a4a6bd17be14234c490a259bb360775e9520"},
     {file = "torchvision-0.15.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:e714f362b9d8217cf4d68509b679ebc9ddf128cfe80f6c1def8e3f8a18466e75"},
     {file = "torchvision-0.15.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:43624accad1e47f16824be4db37ad678dd89326ad90b69c9c6363eeb22b9467e"},
+    {file = "torchvision-0.15.1-cp38-cp38-manylinux2014_aarch64.whl", hash = "sha256:7fe9b0cd3311b0db9e6d45ffab594ced06418fa4e2aa15eb2e60d55e5c51135c"},
     {file = "torchvision-0.15.1-cp38-cp38-win_amd64.whl", hash = "sha256:b45324ea4911a23a4b00b5a15cdbe36d47f93137206dab9f8c606d81b69dd3a7"},
     {file = "torchvision-0.15.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:1dfdec7c7df967330bba3341a781e0c047d4e0163e67164a9918500362bf7d91"},
     {file = "torchvision-0.15.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:c153710186cec0338d4fff411459a57ddbc8504436123ca73b3f0bdc26ff918c"},
     {file = "torchvision-0.15.1-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:ff4e650aa601f32ab97bce06704868dd2baad69ca4d454fa1f0012a51199f2bc"},
+    {file = "torchvision-0.15.1-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:e9b4bb2a15849391df0415d2f76dd36e6528e4253f7b69322b7a0d682535544b"},
     {file = "torchvision-0.15.1-cp39-cp39-win_amd64.whl", hash = "sha256:21e6beb69e77ef6575c4fdd0ab332b96e8a7f144eee0d333acff469c827a4b5e"},
 ]
 
@@ -6204,6 +6359,24 @@ files = [
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
 test = ["argcomplete (>=2.0)", "pre-commit", "pytest", "pytest-mock"]
+
+[[package]]
+name = "traittypes"
+version = "0.2.1"
+description = "Scipy trait types"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "traittypes-0.2.1-py2.py3-none-any.whl", hash = "sha256:1340af133810b6eee1a2eb2e988f862b0d12b6c2d16f282aaf3207b782134c2e"},
+    {file = "traittypes-0.2.1.tar.gz", hash = "sha256:be6fa26294733e7489822ded4ae25da5b4824a8a7a0e0c2dccfde596e3489bd6"},
+]
+
+[package.dependencies]
+traitlets = ">=4.2.2"
+
+[package.extras]
+test = ["numpy", "pandas", "pytest", "xarray"]
 
 [[package]]
 name = "triton"
@@ -6629,6 +6802,18 @@ files = [
 test = ["pytest (>=6.0.0)"]
 
 [[package]]
+name = "widgetsnbextension"
+version = "4.0.6"
+description = "Jupyter interactive widgets for Jupyter Notebook"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "widgetsnbextension-4.0.6-py3-none-any.whl", hash = "sha256:7df2bffa274b0b416c1fa0789e321451858a9e276e1220b40a16cc994192e2b7"},
+    {file = "widgetsnbextension-4.0.6.tar.gz", hash = "sha256:1a07d06c881a7c16ca7ab4541b476edbe2e404f5c5f0cf524ffa2406a8bd7c80"},
+]
+
+[[package]]
 name = "wrapt"
 version = "1.15.0"
 description = "Module for decorators, wrappers and monkey patching."
@@ -6918,4 +7103,4 @@ test = ["zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "707e93078ee2fd1dbb49c796641e171fbe23a0b35142f58727cdb5cb20ea4748"
+content-hash = "b611323175b7ee7b15d4e6a091bdc68bc05145ba7ca14771de1ad61dc8a17f5e"
