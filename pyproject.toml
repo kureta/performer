@@ -30,6 +30,7 @@ tensorboard = "^2.12.0"
 ipytone = "^0.4.1"
 music21 = "^8.1.0"
 plotly = "^5.13.1"
+abjad = {extras = ["nauert", "rmakers"], version = "^3.16"}
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.2.0"
