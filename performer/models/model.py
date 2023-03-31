@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Massachusetts Institute of Technology
-from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Literal, Optional, Tuple, Union
 
 import torch
 from pytorch_lightning import LightningModule
@@ -8,7 +8,6 @@ from torch.nn import Module
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import _LRScheduler
 from torchmetrics import MetricCollection
-from typing_extensions import Literal
 
 from performer.models.components.resnet import resnet18, resnet50
 
