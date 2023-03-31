@@ -1,6 +1,9 @@
 import csv
 
 import numpy as np
+import torch
+
+from performer.models.ddsp_module import DDSP
 
 
 class BaseEasing:
@@ -369,3 +372,34 @@ def parser(path: str):
         notes.append(current_note)
 
     return notes
+
+
+class Renderer:
+    def __init__(self, ckpt):
+        with torch.inference_mode():
+            model = DDSP.load_from_checkpoint(ckpt, map_location="cuda")
+            model = model.to("cuda")
+            model.eval()
+
+        self.model = model
+
+    def render(self, notes, sr=48000):
+        start = 0
+        end = notes.notes[-1].t0 + notes.notes[-1].duration
+
+        t = np.linspace(start, end, int(250 * (end - start)))
+        env = notes.curve(t)
+        f0 = torch.from_numpy(notes.freq(t).astype("float32"))
+
+        env = torch.from_numpy(env.astype("float32"))
+        adsr = env * 90 - 100
+
+        with torch.inference_mode():
+            p1 = f0[None, None, :].cuda()
+            p2 = adsr[None, None, :].cuda()
+
+            y = self.model(p1, p2)
+
+        y = y.cpu().squeeze().numpy()
+
+        return y
