@@ -85,7 +85,8 @@ class Envelope:
     def gap_duration(self):
         gap_duration = self._duration * self.gap_percent_duration
         if self._duration - gap_duration < self.attack_duration:
-            raise ValueError("Note too short!")
+            # raise ValueError("Note too short!")
+            print("Note too short!")
         return gap_duration
 
     @property
@@ -316,6 +317,8 @@ def parser(path: str):
             match row:
                 case [_, "tempo", tempo, unit]:
                     current_tempo = float(tempo), float(unit)
+                case [_, "tempo", tempo]:
+                    current_tempo = float(tempo) / 4, 4
                 case [_, "note", pitch, _, duration, *_]:
                     pitch = float(pitch)
                     if is_in_gliss:
