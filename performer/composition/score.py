@@ -375,10 +375,11 @@ def parser(path: str):
 
 
 class Renderer:
-    def __init__(self, ckpt):
+    def __init__(self, ckpt, device="cuda"):
+        self.device = device
         with torch.inference_mode():
-            model = DDSP.load_from_checkpoint(ckpt, map_location="cuda")
-            model = model.to("cuda")
+            model = DDSP.load_from_checkpoint(ckpt, map_location=device)
+            model = model.to(device)
             model.eval()
 
         self.model = model
@@ -395,8 +396,8 @@ class Renderer:
         adsr = env * 90 - 100
 
         with torch.inference_mode():
-            p1 = f0[None, None, :].cuda()
-            p2 = adsr[None, None, :].cuda()
+            p1 = f0[None, None, :].to(self.device)
+            p2 = adsr[None, None, :].to(self.device)
 
             y = self.model(p1, p2)
 
