@@ -39,7 +39,7 @@ class ExpOut(BaseEasing):
         return 1.0 - np.power(2.0, -10.0 * t)
 
 
-MIN_ATTACK = 0.1
+MIN_ATTACK = 0.01
 MAX_ATTACK = 0.4
 ATTACK_PERCENT = 0.25
 RELEASE = 3.0
@@ -217,7 +217,16 @@ class NoteList:
 
         return func
 
-    def curve(self, t):
+    @property
+    def duration(self):
+        return self.notes[-1].t0 + self.notes[-1].duration
+
+    @property
+    def time(self):
+        return np.linspace(0, self.duration, int(250 * self.duration))
+
+    def curve(self):
+        t = self.time
         return np.piecewise(
             t,
             [
@@ -244,7 +253,8 @@ class NoteList:
 
         return func
 
-    def freq(self, t):
+    def freq(self):
+        t = self.time
         return np.piecewise(
             t,
             [
@@ -384,13 +394,9 @@ class Renderer:
 
         self.model = model
 
-    def render(self, notes, sr=48000):
-        start = 0
-        end = notes.notes[-1].t0 + notes.notes[-1].duration
-
-        t = np.linspace(start, end, int(250 * (end - start)))
-        env = notes.curve(t)
-        f0 = torch.from_numpy(notes.freq(t).astype("float32"))
+    def render(self, notes):
+        env = notes.curve()
+        f0 = torch.from_numpy(notes.freq().astype("float32"))
 
         env = torch.from_numpy(env.astype("float32"))
         adsr = env * 90 - 100
