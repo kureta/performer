@@ -39,7 +39,7 @@ class ExpOut(BaseEasing):
         return 1.0 - np.power(2.0, -10.0 * t)
 
 
-MIN_ATTACK = 0.01
+MIN_ATTACK = 0.004
 MAX_ATTACK = 0.4
 ATTACK_PERCENT = 0.25
 RELEASE = 3.0
@@ -386,13 +386,21 @@ def parser(path: str):
 
 class Renderer:
     def __init__(self, ckpt, device="cuda"):
-        self.device = device
-        with torch.inference_mode():
-            model = DDSP.load_from_checkpoint(ckpt, map_location=device)
-            model = model.to(device)
-            model.eval()
+        self._device = device
+        model = DDSP.load_from_checkpoint(ckpt, map_location=device)
+        model = model.to(device)
+        model.eval()
 
         self.model = model
+
+    @property
+    def device(self):
+        return self._device
+
+    @device.setter
+    def device(self, device):
+        self._device = device
+        self.model.to(device)
 
     def render(self, notes):
         env = notes.curve()

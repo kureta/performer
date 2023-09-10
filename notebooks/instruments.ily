@@ -687,10 +687,10 @@ flute_three_a = {
     \tonic e
     \tune 2 d,4.-> ( \fff\> \tune 2 d,8 ) \p r2 |
   }
-    \tonic d
-    \tune 2 d,4.-> ( \fff\> \tune 2 d,8 ) \p r2 |
-    \tonic f
-    \tune 2 d,4.-> ( \fff\> \tune 2 d,8 ) \p r2 |
+  \tonic d
+  \tune 2 d,4.-> ( \fff\> \tune 2 d,8 ) \p r2 |
+  \tonic f
+  \tune 2 d,4.-> ( \fff\> \tune 2 d,8 ) \p r2 |
 }
 
 canon_one = {
