@@ -48,24 +48,22 @@ class DDSP(LightningModule):
         self.save_hyperparameters(logger=False)
         self.example_input_array = (torch.randn(4, 1, 1001), torch.randn(4, 1, 1001))
 
-        match controller:
-            case "gru":
-                self.controller = Controller(
-                    n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
-                )
-            case "transformer":
-                self.controller = TransformerController(
-                    in_ch,
-                    n_harmonics,
-                    n_filters,
-                    n_units=transformer_units,
-                    n_hidden=transformer_hidden,
-                    n_heads=transformer_heads,
-                    n_layers=transformer_layers,
-                )
-                pass
-            case _:
-                raise ValueError("Valid controllers are 'gru', 'transformer']")
+        if controller == "gru":
+            self.controller = Controller(
+                n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
+            )
+        elif controller == "transformer":
+            self.controller = TransformerController(
+                in_ch,
+                n_harmonics,
+                n_filters,
+                n_units=transformer_units,
+                n_hidden=transformer_hidden,
+                n_heads=transformer_heads,
+                n_layers=transformer_layers,
+            )
+        else:
+            raise ValueError("Valid controllers are 'gru', 'transformer']")
 
         self.harmonics = HarmonicOscillator(n_harmonics, in_ch)
         self.noise = FilteredNoise(n_filters, in_ch)
