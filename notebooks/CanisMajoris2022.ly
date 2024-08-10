@@ -16,6 +16,7 @@
 }
 
 \paper {
+  %#(set-paper-size "a3")
   paper-width = 400
   paper-height = 225
 }
@@ -112,15 +113,15 @@ music = \new StaffGroup {
   >>
 }
 
-opts.exporter = #exportMusicXML
+% opts.exporter = #exportMusicXML
 \score {
   \music
   \layout{
-    \FileExport #opts
+    % \FileExport #opts
 
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/8)
+      % proportionalNotationDuration = #(ly:make-moment 1/8)
       \enablePolymeter
     }
 
