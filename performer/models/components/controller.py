@@ -32,7 +32,9 @@ class PositionalEncoding(nn.Module):
 
         pe = torch.zeros(max_len, d_model)
         position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
-        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
+        div_term = torch.exp(
+            torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model)
+        )
         pe[:, 0::2] = torch.sin(position * div_term)
         pe[:, 1::2] = torch.cos(position * div_term)
         pe = pe.unsqueeze(0).transpose(0, 1)
@@ -60,13 +62,15 @@ class TransformerModel(nn.Module):
         encoder_layers = nn.TransformerEncoderLayer(n_units, n_heads, n_hidden, dropout)
         self.transformer_encoder = nn.TransformerEncoder(encoder_layers, n_layers)
         self.n_units = n_units
-        self.performer_mask = self._generate_square_subsequent_mask(1001).cuda()
+        self.performer_mask = self._generate_square_subsequent_mask(1001)  # .cuda()
 
     @staticmethod
     def _generate_square_subsequent_mask(sz):
         mask = (torch.triu(torch.ones(sz, sz)) == 1).transpose(0, 1)
         mask = (
-            mask.float().masked_fill(mask == 0, float("-inf")).masked_fill(mask == 1, float(0.0))
+            mask.float()
+            .masked_fill(mask == 0, float("-inf"))
+            .masked_fill(mask == 1, float(0.0))
         )
         return mask
 
@@ -174,8 +178,12 @@ class Controller(nn.Module):
     ):
         super().__init__()
 
-        self.mlp_f0 = MLP(n_input=1, n_units=decoder_mlp_units, n_layer=decoder_mlp_layers)
-        self.mlp_loudness = MLP(n_input=1, n_units=decoder_mlp_units, n_layer=decoder_mlp_layers)
+        self.mlp_f0 = MLP(
+            n_input=1, n_units=decoder_mlp_units, n_layer=decoder_mlp_layers
+        )
+        self.mlp_loudness = MLP(
+            n_input=1, n_units=decoder_mlp_units, n_layer=decoder_mlp_layers
+        )
 
         self.num_mlp = 2
 

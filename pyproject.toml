@@ -1,69 +1,33 @@
-[tool.poetry]
+[project]
 name = "performer"
 version = "0.1.0"
-description = ""
-authors = ["kureta <skureta@gmail.com>"]
+description = "Add your description here"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.8"
-numpy = "^1.23"
-numba = "^0.56"
-llvmlite = "^0.39"
-librosa = "^0.10.0.post2"
-torch = "^2.0.0"
-torchaudio = "^2.0.1"
-torchvision = "^0.15.1"
-lightning = "^2.0.0"
-torchmetrics = "^0.11.4"
-hydra-core = "^1.3.2"
-hydra-colorlog = "^1.2.0"
-hydra-zen = "^0.10.0"
-wandb = "^0.14.0"
-einops = "^0.6.0"
-dvc = {extras = ["s3", "ssh"], version = "^2.51.0"}
-jupyterlab = "^3.6.2"
-matplotlib = "^3.7.1"
-tqdm = "^4.65.0"
-torchcrepe = {git = "https://github.com/kureta/torchcrepe.git", branch = "master"}
-tensorboard = "^2.12.0"
-# ipytone = "^0.4.1"
-# music21 = "^8.1.0"
-plotly = "^5.13.1"
-# abjad = {extras = ["nauert", "rmakers"], version = "^3.16"}
-pyrootutils = "^1.0.4"
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^3.2.0"
-nbdime = "^3.1.1"
-nbstripout = "^0.6.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.pytest.ini_options]
-addopts = [
-  "--color=yes",
-  "--durations=0",
-  "--strict-markers",
-  "--doctest-modules",
+requires-python = ">=3.8"
+dependencies = [
+    "dvc[s3,ssh]~=2.51.0",
+    "einops~=0.6.0",
+    "hydra-colorlog~=1.2.0",
+    "hydra-core~=1.3.2",
+    "hydra-zen~=0.10.0",
+    "jupyterlab~=3.6.2",
+    "librosa~=0.10.0",
+    "lightning~=2.0.0",
+    "matplotlib~=3.7.1",
+    "numba~=0.56.0",
+    "numpy~=1.23.0",
+    "pandas>=2.0.3",
+    "plotly~=5.13.1",
+    "pyrootutils~=1.0.4",
+    "tensorboard~=2.12.0",
+    "torch~=2.0.0",
+    "torchaudio~=2.0.1",
+    "torchcrepe",
+    "torchmetrics~=0.11.4",
+    "torchvision~=0.15.1",
+    "tqdm~=4.65.0",
+    "wandb~=0.14.0",
 ]
-filterwarnings = [
-  "ignore::DeprecationWarning",
-  "ignore::UserWarning",
-]
-log_cli = "True"
-markers = [
-  "slow: slow tests",
-]
-minversion = "6.0"
-testpaths = "tests/"
 
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: nocover",
-    "raise NotImplementedError",
-    "raise NotImplementedError()",
-    "if __name__ == .__main__.:",
-]
+[tool.uv.sources]
+torchcrepe = { git = "https://github.com/kureta/torchcrepe.git" }

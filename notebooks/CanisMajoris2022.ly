@@ -5,7 +5,7 @@
 
 #(ly:set-option 'relative-includes #t)
 
-\include "./event-listener.ly"
+% \include "./event-listener.ly"
 \include "./instruments.ily"
 
 \header {
