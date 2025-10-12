@@ -1,0 +1,4 @@
+outs:
+- md5: 61488a2db074ff7691f5a402d3e0e7aa
+  size: 32369861
+  path: cello-cuda-controller.pt

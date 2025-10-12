@@ -1,0 +1,4 @@
+outs:
+- md5: 94a6dc9d0736807cbf29f99ef35e1e52
+  size: 3453728867
+  path: flute_samples.pth

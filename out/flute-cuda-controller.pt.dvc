@@ -1,0 +1,4 @@
+outs:
+- md5: 8d811cc9953d4603959329f3c211659b
+  size: 32369861
+  path: flute-cuda-controller.pt

@@ -1,0 +1,4 @@
+outs:
+- md5: 17d70d1494d3799aa21bb5649fbb0dbd
+  size: 6269833222
+  path: violin_samples.pth

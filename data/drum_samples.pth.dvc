@@ -1,0 +1,4 @@
+outs:
+- md5: af1c5da0c2dc30866471fb74b8a25df6
+  size: 417324092
+  path: drum_samples.pth

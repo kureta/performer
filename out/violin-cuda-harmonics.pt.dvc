@@ -1,0 +1,4 @@
+outs:
+- md5: a86c9ae37453e0e80ad749709944a572
+  size: 21218
+  path: violin-cuda-harmonics.pt

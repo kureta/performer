@@ -1,0 +1,4 @@
+outs:
+- md5: 290ada9df7de0bfedc43ca1bd00f3dda
+  size: 4765340289
+  path: cello_samples.pth

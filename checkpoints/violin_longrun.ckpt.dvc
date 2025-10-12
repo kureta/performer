@@ -1,0 +1,4 @@
+outs:
+- md5: a39b09a010d8495b0a685ee5cb29e4e8
+  size: 100508441
+  path: violin_longrun.ckpt

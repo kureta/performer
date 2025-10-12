@@ -1,0 +1,9 @@
+[core]
+    analytics = false
+    autostage = false
+    remote = minio
+['remote "minio"']
+    url = s3://performer
+    endpointurl = https://s3.kureta.xyz
+    access_key_id = 5LGiHgsIlIcjpGQccKd3
+    secret_access_key = ZdQie6DsckK4o6rlikGFKjolLpVvoC1BMzUHxoKp
