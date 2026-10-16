@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import librosa
+import numpy as np
 import torch
 import torch.nn.functional as F
 import torchaudio.functional as AF
@@ -26,6 +27,8 @@ def generate_data(
     f0_data = []
     for wf in tqdm(wav_files):
         audio, _ = librosa.load(wf, sr=44100, mono=False, dtype="float32")
+        if len(audio.shape) == 1:
+            audio = np.stack([audio, audio], axis=0)
         audio = torch.from_numpy(audio)  # .cuda()
         audio = AF.resample(audio.unsqueeze(0), 44100, SAMPLE_RATE)
         # This makes sure the entire chain of audio length is a multiple of `HOP_SIZE`
