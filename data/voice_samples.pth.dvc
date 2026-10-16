@@ -1,0 +1,4 @@
+outs:
+- md5: 9f20018a8516f45759916715eff6bd55
+  size: 54982849
+  path: voice_samples.pth
