@@ -1,33 +1,48 @@
+[build-system]
+build-backend = "uv_build"
+requires = [ "uv-build>=0.9.17,<0.10" ]
+
 [project]
 name = "performer"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+]
 dependencies = [
-    "dvc[s3,ssh]~=2.51.0",
-    "einops~=0.6.0",
-    "hydra-colorlog~=1.2.0",
-    "hydra-core~=1.3.2",
-    "hydra-zen~=0.10.0",
-    "jupyterlab~=3.6.2",
-    "librosa~=0.10.0",
-    "lightning~=2.0.0",
-    "matplotlib~=3.7.1",
-    "numba~=0.56.0",
-    "numpy~=1.23.0",
-    "pandas>=2.0.3",
-    "plotly~=5.13.1",
-    "pyrootutils~=1.0.4",
-    "tensorboard~=2.12.0",
-    "torch~=2.0.0",
-    "torchaudio~=2.0.1",
-    "torchcrepe",
-    "torchmetrics~=0.11.4",
-    "torchvision~=0.15.1",
-    "tqdm~=4.65.0",
-    "wandb~=0.14.0",
+  "dvc[s3,ssh]~=2.51.0",
+  "einops~=0.6.0",
+  "hydra-colorlog~=1.2.0",
+  "hydra-core~=1.3.2",
+  "hydra-zen~=0.10.0",
+  "jupyterlab~=3.6.2",
+  "librosa~=0.10.0",
+  "lightning~=2.0.0",
+  "matplotlib~=3.7.1",
+  "numba~=0.56.0",
+  "numpy~=1.23.0",
+  "pandas>=2.0.3",
+  "plotly~=5.13.1",
+  "pyrootutils~=1.0.4",
+  "tensorboard~=2.12.0",
+  "torch~=2.0.0",
+  "torchaudio~=2.0.1",
+  "torchcrepe",
+  "torchmetrics~=0.11.4",
+  "torchvision~=0.15.1",
+  "tqdm~=4.65.0",
+  "wandb~=0.14.0",
 ]
 
-[tool.uv.sources]
-torchcrepe = { git = "https://github.com/kureta/torchcrepe.git" }
+[tool.uv]
+sources.torchcrepe = { git = "https://github.com/kureta/torchcrepe.git" }
