@@ -48,24 +48,22 @@ class DDSP(LightningModule):
         self.save_hyperparameters(logger=False)
         self.example_input_array = (torch.randn(4, 1, 1001), torch.randn(4, 1, 1001))
 
-        match controller:
-            case "gru":
-                self.controller = Controller(
-                    n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
-                )
-            case "transformer":
-                self.controller = TransformerController(
-                    in_ch,
-                    n_harmonics,
-                    n_filters,
-                    n_units=transformer_units,
-                    n_hidden=transformer_hidden,
-                    n_heads=transformer_heads,
-                    n_layers=transformer_layers,
-                )
-                pass
-            case _:
-                raise ValueError("Valid controllers are 'gru', 'transformer']")
+        if controller == "gru":
+            self.controller = Controller(
+                n_harmonics, n_filters, mlp_units, mlp_layers, gru_units, gru_layers
+            )
+        elif controller == "transformer":
+            self.controller = TransformerController(
+                in_ch,
+                n_harmonics,
+                n_filters,
+                n_units=transformer_units,
+                n_hidden=transformer_hidden,
+                n_heads=transformer_heads,
+                n_layers=transformer_layers,
+            )
+        else:
+            raise ValueError("Valid controllers are 'gru', 'transformer']")
 
         self.harmonics = HarmonicOscillator(n_harmonics, in_ch)
         self.noise = FilteredNoise(n_filters, in_ch)
@@ -134,7 +132,9 @@ class DDSP(LightningModule):
             noise_images = []
 
             _, master_amp, overtone_amps = harm_ctrl
-            for wav, m_amp, overtones, noises in zip(y, master_amp, overtone_amps, noise_ctrl):
+            for wav, m_amp, overtones, noises in zip(
+                y, master_amp, overtone_amps, noise_ctrl
+            ):
                 audios.append(wandb.Audio(wav.cpu().numpy().T, sample_rate=SAMPLE_RATE))
                 # Generate inferred harmonic oscillator master amplitude plot
                 amps.append(m_amp[0].cpu().numpy())
